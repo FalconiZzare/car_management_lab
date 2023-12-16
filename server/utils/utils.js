@@ -13,4 +13,18 @@ const executeQuery = async (query, params) => {
   }
 };
 
-module.exports = { executeQuery };
+const adminChecker = async (id) => {
+  const user = await executeQuery(`
+    SELECT roleId
+    FROM users
+    WHERE id = '${id}'
+  `);
+
+  if (user?.length <= 0) {
+    return null;
+  }
+
+  return user[0].roleId;
+};
+
+module.exports = { executeQuery, adminChecker };

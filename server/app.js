@@ -1,7 +1,6 @@
 const express = require("express");
 const bodyparser = require("body-parser");
 const http = require("http");
-const path = require("path");
 const multer = require("multer");
 
 //ROUTE IMPORTS
@@ -35,12 +34,6 @@ app.use((req, res, next) => {
 
 //ROUTES
 app.use("/api/auth", authRoutes);
-
-// app.use(express.static("client/build"));
-
-// app.get("*", (req, res) => {
-//   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-// });
 
 const PORT = 5000;
 

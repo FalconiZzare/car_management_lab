@@ -1,5 +1,5 @@
 const { validationResult } = require("express-validator");
-const { executeQuery } = require("../utils/utils");
+const { executeQuery, adminChecker } = require("../utils/utils");
 
 exports.addUser = async (req, res) => {
   const errors = validationResult(req);
@@ -7,11 +7,11 @@ exports.addUser = async (req, res) => {
     return res.status(400).json({ message: errors.array()[0].msg, success: false });
   }
 
-  const { username, email, password, role } = req.body;
+  const { fname, lname, username, email, password } = req.body;
 
   try {
     const userFound = await executeQuery(`
-        SELECT username
+        SELECT username, email
         FROM users
         WHERE username = '${username}'
            OR email = '${email}'
@@ -26,8 +26,8 @@ exports.addUser = async (req, res) => {
     }
 
     await executeQuery(`
-        INSERT INTO users (username, password, email, role)
-        VALUES ('${username}', '${password}', '${email}', '${role}')
+        INSERT INTO users (fname, lname, username, password, email, roleId)
+        VALUES ('${fname}', '${lname}', '${username}', '${password}', '${email}', 2)
     `);
 
     res.status(200).json({
@@ -76,6 +76,221 @@ exports.postLogin = async (req, res) => {
         message: "Invalid password!",
         success: false,
         data: {}
+      });
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server error!");
+  }
+};
+
+exports.getUser = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ message: errors.array()[0].msg, success: false });
+  }
+
+  try {
+    const user = await executeQuery(`
+        SELECT users.id, username, email, roleId, roles.role
+        FROM users
+                 JOIN roles on users.roleId = roles.id
+        WHERE users.id = '${req.query.id}'
+    `);
+
+    if (user?.length <= 0) {
+      return res.status(400).json({
+        message: "No user found!",
+        success: false,
+        data: {}
+      });
+    }
+
+    return res.status(200).json({
+      message: "Get user.",
+      success: true,
+      data: user[0]
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server error!");
+  }
+};
+
+exports.getUsers = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ message: errors.array()[0].msg, success: false });
+  }
+
+  const { id } = req.body;
+
+  try {
+    const userRoleId = await adminChecker(id);
+
+    if (userRoleId && userRoleId === 1) {
+      const users = await executeQuery(`
+          SELECT users.id, username, email, roleId, roles.role
+          FROM users
+                   JOIN roles on users.roleId = roles.id
+      `);
+
+      return res.status(200).json({
+        message: "Get users.",
+        success: true,
+        data: users
+      });
+    } else {
+      return res.status(200).json({
+        message: "You are not authorized!",
+        success: false
+      });
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server error!");
+  }
+};
+
+exports.deleteUser = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ message: errors.array()[0].msg, success: false });
+  }
+
+  const { id } = req.params;
+
+  try {
+    const userRoleId = await adminChecker(req.body.id);
+
+    if (userRoleId && userRoleId === 1) {
+      const user = await executeQuery(`
+          SELECT *
+          FROM users
+          WHERE id = '${id}'
+      `);
+
+      if (user?.length <= 0) {
+        return res.status(400).json({
+          message: "No user found!",
+          success: false
+        });
+      }
+
+      await executeQuery(`
+          DELETE
+          FROM users
+          WHERE id = '${id}'
+      `);
+
+      return res.status(200).json({
+        message: "User deleted!",
+        success: true
+      });
+    } else {
+      return res.status(200).json({
+        message: "You are not authorized!",
+        success: false
+      });
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server error!");
+  }
+};
+
+exports.updateUser = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ message: errors.array()[0].msg, success: false });
+  }
+
+  const { fname, lname, username, email, password } = req.body;
+  const { id } = req.params;
+
+  try {
+    const currentUser = await executeQuery(`
+        SELECT username, email
+        FROM users
+        WHERE id = '${id}'
+    `);
+
+    if (currentUser[0].username !== username) {
+      const usernameFound = await executeQuery(`
+          SELECT username, email
+          FROM users
+          WHERE username = '${username}'
+      `);
+
+      if (usernameFound?.length > 0) {
+        return res.status(400).json({
+          message: "A user already exists with this username",
+          success: false
+        });
+      }
+    }
+
+    if (currentUser[0].email !== email) {
+      const emailFound = await executeQuery(`
+          SELECT username, email
+          FROM users
+          WHERE email = '${email}'
+      `);
+
+      if (emailFound?.length > 0) {
+        return res.status(400).json({
+          message: "A user already exists with this email",
+          success: false
+        });
+      }
+    }
+
+    await executeQuery(`
+        UPDATE users
+        SET fname    = '${fname}',
+            lname    = '${lname}',
+            username = '${username}',
+            email    = '${email}',
+            password = '${password}'
+        WHERE id = '${id}'
+    `);
+
+    return res.status(200).json({
+      message: "User updated!",
+      success: true
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Server error!");
+  }
+};
+
+exports.updateUserRole = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ message: errors.array()[0].msg, success: false });
+  }
+
+  const { id } = req.params;
+
+  try {
+    const userRoleId = await adminChecker(req.body.id);
+
+    if (userRoleId && userRoleId === 1) {
+      await executeQuery(`
+          UPDATE users
+          SET roleId = '${req.body.roleId}'
+          WHERE id = '${id}'
+      `);
+
+      return res.status(200).json({
+        message: "User role updated!",
+        success: true
+      });
+    } else {
+      return res.status(200).json({
+        message: "You are not authorized!",
+        success: false
       });
     }
   } catch (error) {
