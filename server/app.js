@@ -5,6 +5,7 @@ const multer = require("multer");
 
 //ROUTE IMPORTS
 const authRoutes = require("./routes/auth");
+const carRoutes = require("./routes/car");
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use((req, res, next) => {
 
 //ROUTES
 app.use("/api/auth", authRoutes);
+app.use("/api/car", carRoutes);
 
 const PORT = 5000;
 

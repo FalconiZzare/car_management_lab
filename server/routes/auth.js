@@ -1,6 +1,7 @@
 const express = require("express");
 const { body } = require("express-validator");
 const authControllers = require("../controllers/auth.controller");
+const authMiddleware = require("../middleware/auth.middleware");
 
 const router = express.Router();
 
@@ -41,20 +42,12 @@ router.get("/user", authControllers.getUser);
 //@route    GET api/auth/users
 //desc      GET users
 //@access   Private
-router.get(
-  "/users",
-  [body("id", "Logged in user ID can't be empty!").trim().not().isEmpty()],
-  authControllers.getUsers
-);
+router.get("/users", authMiddleware, authControllers.getUsers);
 
 //@route    DELETE api/auth/user/:id
 //desc      DELETE user
 //@access   Private
-router.delete(
-  "/user/:id",
-  [body("id", "Logged in user ID can't be empty!").trim().not().isEmpty()],
-  authControllers.deleteUser
-);
+router.delete("/user/:id", authMiddleware, authControllers.deleteUser);
 
 //@route    PUT api/auth/user/:id
 //desc      PUT user
@@ -78,10 +71,7 @@ router.put(
 //@access   Private
 router.put(
   "/user/update-role/:id",
-  [
-    body("roleId", "Role ID can not be empty!").trim().not().isEmpty(),
-    body("id", "Logged in user ID can't be empty!").trim().not().isEmpty()
-  ],
+  [authMiddleware, [body("roleId", "Role ID can not be empty!").trim().not().isEmpty()]],
   authControllers.updateUserRole
 );
 

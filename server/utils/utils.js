@@ -1,5 +1,6 @@
 const mysql = require("mysql2");
 const config = require("../config/config");
+const fs = require("fs");
 
 const pool = mysql.createPool(config);
 
@@ -13,18 +14,17 @@ const executeQuery = async (query, params) => {
   }
 };
 
-const adminChecker = async (id) => {
-  const user = await executeQuery(`
-    SELECT roleId
-    FROM users
-    WHERE id = '${id}'
-  `);
-
-  if (user?.length <= 0) {
-    return null;
+const removeUploadedImages = (imagesArray) => {
+  if (imagesArray) {
+    for (const image of imagesArray) {
+      if (image) {
+        fs.unlink(`images/${image.filename}`, (err) => {
+          if (err) console.log("No image found");
+          console.log(image.filename + " was deleted");
+        });
+      }
+    }
   }
-
-  return user[0].roleId;
 };
 
-module.exports = { executeQuery, adminChecker };
+module.exports = { executeQuery, removeUploadedImages };

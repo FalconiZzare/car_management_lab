@@ -1,5 +1,5 @@
 const { validationResult } = require("express-validator");
-const { executeQuery, adminChecker } = require("../utils/utils");
+const { executeQuery } = require("../utils/utils");
 
 exports.addUser = async (req, res) => {
   const errors = validationResult(req);
@@ -123,29 +123,18 @@ exports.getUsers = async (req, res) => {
     return res.status(400).json({ message: errors.array()[0].msg, success: false });
   }
 
-  const { id } = req.body;
-
   try {
-    const userRoleId = await adminChecker(id);
+    const users = await executeQuery(`
+        SELECT users.id, username, email, roleId, roles.role
+        FROM users
+                 JOIN roles on users.roleId = roles.id
+    `);
 
-    if (userRoleId && userRoleId === 1) {
-      const users = await executeQuery(`
-          SELECT users.id, username, email, roleId, roles.role
-          FROM users
-                   JOIN roles on users.roleId = roles.id
-      `);
-
-      return res.status(200).json({
-        message: "Get users.",
-        success: true,
-        data: users
-      });
-    } else {
-      return res.status(200).json({
-        message: "You are not authorized!",
-        success: false
-      });
-    }
+    return res.status(200).json({
+      message: "Get users.",
+      success: true,
+      data: users
+    });
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Server error!");
@@ -161,38 +150,29 @@ exports.deleteUser = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const userRoleId = await adminChecker(req.body.id);
+    const user = await executeQuery(`
+        SELECT *
+        FROM users
+        WHERE id = '${id}'
+    `);
 
-    if (userRoleId && userRoleId === 1) {
-      const user = await executeQuery(`
-          SELECT *
-          FROM users
-          WHERE id = '${id}'
-      `);
-
-      if (user?.length <= 0) {
-        return res.status(400).json({
-          message: "No user found!",
-          success: false
-        });
-      }
-
-      await executeQuery(`
-          DELETE
-          FROM users
-          WHERE id = '${id}'
-      `);
-
-      return res.status(200).json({
-        message: "User deleted!",
-        success: true
-      });
-    } else {
-      return res.status(200).json({
-        message: "You are not authorized!",
+    if (user?.length <= 0) {
+      return res.status(400).json({
+        message: "No user found!",
         success: false
       });
     }
+
+    await executeQuery(`
+        DELETE
+        FROM users
+        WHERE id = '${id}'
+    `);
+
+    return res.status(200).json({
+      message: "User deleted!",
+      success: true
+    });
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Server error!");
@@ -274,25 +254,16 @@ exports.updateUserRole = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const userRoleId = await adminChecker(req.body.id);
+    await executeQuery(`
+        UPDATE users
+        SET roleId = '${req.body.roleId}'
+        WHERE id = '${id}'
+    `);
 
-    if (userRoleId && userRoleId === 1) {
-      await executeQuery(`
-          UPDATE users
-          SET roleId = '${req.body.roleId}'
-          WHERE id = '${id}'
-      `);
-
-      return res.status(200).json({
-        message: "User role updated!",
-        success: true
-      });
-    } else {
-      return res.status(200).json({
-        message: "You are not authorized!",
-        success: false
-      });
-    }
+    return res.status(200).json({
+      message: "User role updated!",
+      success: true
+    });
   } catch (error) {
     console.log(error.message);
     res.status(500).send("Server error!");
