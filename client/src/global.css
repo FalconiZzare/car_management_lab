@@ -33,7 +33,7 @@
 
     --ring: 24.6 95% 53.1%;
 
-    --radius: 0.95rem;
+    --radius: 0.5rem;
   }
 
   .dark {
@@ -41,7 +41,7 @@
     --foreground: 60 9.1% 97.8%;
 
     --muted: 12 6.5% 15.1%;
-    --muted-foreground: 24 5.4% 63.9%;
+    --muted-foreground: 24 5.4% 75%;
 
     --popover: 225 9% 18%;
     --popover-foreground: 60 9.1% 97.8%;

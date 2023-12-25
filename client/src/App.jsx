@@ -1,15 +1,19 @@
 import { ThemeProvider } from "@/hooks/ThemeProvider.jsx";
+import { BrowserRouter } from "react-router-dom";
+import RouteTable from "@/routes/RouteTable.jsx";
 
 function App() {
   return (
-    <ThemeProvider
-      defaultTheme="light"
-      attribute={"class"}
-      enableSystem
-      disableTransitionOnChange={false}
-    >
-      <div className={"flex h-full flex-col items-center justify-center"}>Hello</div>
-    </ThemeProvider>
+    <BrowserRouter future={{ v7_startTransition: true }}>
+      <ThemeProvider
+        defaultTheme="dark"
+        attribute={"class"}
+        enableSystem
+        disableTransitionOnChange={false}
+      >
+        <RouteTable />
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 

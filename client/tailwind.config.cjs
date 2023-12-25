@@ -70,12 +70,23 @@ module.exports = {
         "fade-in": {
           from: { scale: 0, opacity: 0 },
           to: { scale: 1, opacity: 1 },
+        },
+        "move": {
+          '0%, 49.99%': {
+            opacity: 1,
+            zIndex: 1
+          },
+          '50%, 100%': {
+            opacity: 1,
+            zIndex: 5
+          }
         }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "fade-in": "fade-in 0.5s forwards"
+        "fade-in": "fade-in 0.5s forwards",
+        "move": "move 0.6s"
       },
     },
   },
