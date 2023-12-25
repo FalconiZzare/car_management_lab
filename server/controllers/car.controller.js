@@ -1,5 +1,6 @@
 const { validationResult } = require("express-validator");
 const { executeQuery, removeUploadedImages } = require("../utils/utils");
+const fs = require("fs");
 
 exports.addMake = async (req, res) => {
   const errors = validationResult(req);
@@ -38,6 +39,52 @@ exports.addMake = async (req, res) => {
   }
 };
 
+exports.getMakes = async (req, res) => {
+  try {
+    const makes = await executeQuery(`
+        SELECT *
+        FROM makes
+        ORDER BY make
+    `);
+
+    res.status(200).json({
+      message: "Get make list success!",
+      success: true,
+      data: makes
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server error!");
+  }
+};
+
+exports.getModels = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ message: errors.array()[0].msg, success: false });
+  }
+
+  const { makeId } = req.body;
+
+  try {
+    const models = await executeQuery(`
+        SELECT DISTINCT model
+        FROM cars
+        WHERE makeId = '${makeId}'
+        ORDER BY model
+    `);
+
+    res.status(200).json({
+      message: "Get model list success!",
+      success: true,
+      data: models
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server error!");
+  }
+};
+
 exports.addCar = async (req, res) => {
   const errors = validationResult(req);
   let imagesArray = req.files;
@@ -49,19 +96,6 @@ exports.addCar = async (req, res) => {
   const { makeId, model, rent } = req.body;
 
   try {
-    const modelFound = await executeQuery(`
-        SELECT model
-        FROM cars
-        WHERE model = '${model}'
-    `);
-
-    if (modelFound?.length > 0) {
-      return res.status(400).json({
-        message: "A car already exists with this model!",
-        success: false
-      });
-    }
-
     await executeQuery(`
         INSERT INTO cars (makeId, model, rent, photo)
         VALUES ('${makeId}', '${model}', '${rent}', '${imagesArray[0].filename}')
@@ -72,5 +106,75 @@ exports.addCar = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
+    res.status(500).send("Server error!");
+  }
+};
+
+exports.getCar = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const car = await executeQuery(`
+        SELECT *
+        FROM cars
+        LEFT OUTER JOIN makes ON (cars.makeId = makes.id)
+        WHERE cars.id = '${id}'
+    `);
+
+    if (car?.length === 0) {
+      return res.status(400).json({
+        message: "No car entry found!",
+        success: false
+      });
+    }
+
+    return res.status(200).json({
+      message: "Get car success!",
+      success: true,
+      data: car[0]
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Server error!");
+  }
+};
+
+exports.deleteCar = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const car = await executeQuery(`
+        SELECT *
+        FROM cars
+        WHERE id = '${id}'
+    `);
+
+    if (car?.length === 0) {
+      return res.status(400).json({
+        message: "No car entry found!",
+        success: false
+      });
+    }
+
+    await executeQuery(`
+        DELETE
+        FROM cars
+        WHERE id = '${id}'
+    `);
+
+    fs.unlink(`images/${car[0].photo}`, (err) => {
+      if (err) {
+        console.log(err);
+        return null;
+      }
+    });
+
+    return res.status(200).json({
+      message: "Car deleted successfully!",
+      success: true
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Server error!");
   }
 };

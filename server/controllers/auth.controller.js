@@ -85,11 +85,6 @@ exports.postLogin = async (req, res) => {
 };
 
 exports.getUser = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ message: errors.array()[0].msg, success: false });
-  }
-
   try {
     const user = await executeQuery(`
         SELECT users.id, username, email, roleId, roles.role
@@ -118,11 +113,6 @@ exports.getUser = async (req, res) => {
 };
 
 exports.getUsers = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ message: errors.array()[0].msg, success: false });
-  }
-
   try {
     const users = await executeQuery(`
         SELECT users.id, username, email, roleId, roles.role
@@ -142,11 +132,6 @@ exports.getUsers = async (req, res) => {
 };
 
 exports.deleteUser = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ message: errors.array()[0].msg, success: false });
-  }
-
   const { id } = req.params;
 
   try {
