@@ -93,12 +93,12 @@ exports.addCar = async (req, res) => {
     return res.status(400).json({ message: errors.array()[0].msg, success: false });
   }
 
-  const { makeId, model, rent } = req.body;
+  const { makeId, model, rent, state } = req.body;
 
   try {
     await executeQuery(`
-        INSERT INTO cars (makeId, model, rent, photo)
-        VALUES ('${makeId}', '${model}', '${rent}', '${imagesArray[0].filename}')
+        INSERT INTO cars (makeId, model, rent, photo, state)
+        VALUES ('${makeId}', '${model}', '${rent}', '${imagesArray[0].filename}', '${state}')
     `);
     return res.status(200).json({
       message: "Car added successfully!",
@@ -132,6 +132,30 @@ exports.getCar = async (req, res) => {
       message: "Get car success!",
       success: true,
       data: car[0]
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Server error!");
+  }
+};
+
+exports.getCars = async (req, res) => {
+  const { search, make, model } = req.body;
+
+  try {
+    const cars = await executeQuery(`
+        SELECT *
+        FROM cars
+        LEFT OUTER JOIN makes ON cars.makeId = makes.id
+        WHERE (makes.make LIKE '%${search}%' OR cars.model LIKE '%${search}%')
+          AND (makes.make = '${make}' OR '${make}' = '')
+          AND (cars.model = '${model}' OR '${model}' = '');
+    `);
+
+    return res.status(200).json({
+      message: "Get car success!",
+      success: true,
+      data: cars
     });
   } catch (error) {
     console.log(error);

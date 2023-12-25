@@ -6,6 +6,8 @@ const multer = require("multer");
 //ROUTE IMPORTS
 const authRoutes = require("./routes/auth");
 const carRoutes = require("./routes/car");
+const rentRoutes = require("./routes/rent");
+const partRoutes = require("./routes/part");
 
 const app = express();
 
@@ -36,6 +38,8 @@ app.use((req, res, next) => {
 //ROUTES
 app.use("/api/auth", authRoutes);
 app.use("/api/car", carRoutes);
+app.use("/api/rent", rentRoutes);
+app.use("/api/part", partRoutes);
 
 const PORT = 5000;
 

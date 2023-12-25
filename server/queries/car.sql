@@ -5,6 +5,7 @@ CREATE TABLE cars
     model VARCHAR(50) NOT NULL,
     rent INTEGER NOT NULL,
     photo VARCHAR(255) NOT NULL,
+    state VARCHAR(255) DEFAULT 'Looks Like New',
     isRented BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (makeId) REFERENCES makes(id)
 );

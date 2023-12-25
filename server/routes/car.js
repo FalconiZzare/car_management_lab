@@ -38,7 +38,8 @@ router.post(
     [
       body("makeId", "Make ID can not be empty!").trim().not().isEmpty(),
       body("model", "Model can not be empty!").trim().not().isEmpty(),
-      body("rent", "Rent can not be empty!").trim().not().isEmpty()
+      body("rent", "Rent can not be empty!").trim().not().isEmpty(),
+      body("state").trim()
     ]
   ],
   carControllers.addCar
@@ -48,6 +49,15 @@ router.post(
 // @desc    GET Get car details
 // @access  Public
 router.get("/details/:id", carControllers.getCar);
+
+// @route   POST api/car/cars
+// @desc    POST Get cars list
+// @access  Public
+router.post(
+  "/cars",
+  [body("search").trim(), body("make").trim(), body("model").trim()],
+  carControllers.getCars
+);
 
 // @route   DELETE api/car/:id
 // @desc    DELETE delete a car
