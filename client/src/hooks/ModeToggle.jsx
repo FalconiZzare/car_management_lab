@@ -13,7 +13,12 @@ export const ModeToggle = () => {
   };
 
   return (
-    <Button onClick={handleThemeChange} variant={"outline"} size={"icon"} className={"btn-rounded"}>
+    <Button
+      onClick={handleThemeChange}
+      variant={"outline"}
+      size={"icon"}
+      className={"border-accent bg-transparent"}
+    >
       <Sun className={"btn-icon rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"} />
       <Icons.moon
         className={

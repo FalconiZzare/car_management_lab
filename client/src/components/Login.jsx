@@ -11,7 +11,7 @@ const Login = () => {
     <div className={"container flex h-dvh w-full flex-col items-center justify-center"}>
       <div
         className={
-          "flex h-[800px] flex-row overflow-hidden rounded-xl border border-accent shadow-[0_0_15px_1px_rgba(0,0,0,0.40)]"
+          "flex h-[700px] flex-row overflow-hidden rounded-xl border border-accent shadow-[0_0_15px_1px_rgba(0,0,0,0.40)]"
         }
       >
         <AuthDescription />
@@ -31,12 +31,14 @@ const Login = () => {
                 <span className={"w-full border-t border-muted-foreground"} />
               </div>
               <div className={"relative flex justify-center text-xs uppercase"}>
-                <span className={"bg-background px-2 text-muted-foreground"}>Or continue by</span>
+                <span className={"bg-background px-2 text-muted-foreground"}>
+                  Don't have an account?
+                </span>
               </div>
             </div>
             <Button variant={"outline"} className={"gap-2"} onClick={() => navigate("/signup")}>
               <Mail />
-              Email Signup
+              Signup with Email
             </Button>
           </div>
         </div>

@@ -11,14 +11,14 @@ const Signup = () => {
     <div className={"container flex h-dvh w-full flex-col items-center justify-center"}>
       <div
         className={
-          "flex h-[800px] flex-row overflow-hidden rounded-xl border border-accent shadow-[0_0_15px_1px_rgba(0,0,0,0.40)]"
+          "flex h-[700px] flex-row overflow-hidden rounded-xl border border-accent shadow-[0_0_15px_1px_rgba(0,0,0,0.40)]"
         }
       >
         <AuthDescription />
         <div className={"flex h-full w-[50%] flex-col items-center justify-center gap-3 p-8"}>
           <h1 className={"text-2xl font-bold tracking-tight"}>Create and account</h1>
           <p className={"text-sm text-muted-foreground"}>
-            Enter your credentials below to create your account
+            Enter your credentials below to create an account
           </p>
           <div className={"mt-4 grid w-8/12 gap-6"}>
             <form>
