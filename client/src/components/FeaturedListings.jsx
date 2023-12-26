@@ -1,8 +1,8 @@
-import React from "react";
-import { Separator } from "@/components/ui/separator.jsx";
-import { Button } from "@/components/ui/button.jsx";
+import { useNavigate } from "react-router-dom";
+import CarCardBottom from "@/components/CarCardBottom.jsx";
 
 const FeaturedListings = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <div className={"mb-[3rem] flex flex-col gap-3"}>
@@ -16,34 +16,14 @@ const FeaturedListings = () => {
             className={`relative mb-6 flex flex-col items-center justify-start overflow-hidden rounded-2xl border border-ring bg-card dark:border-accent ${
               index === 0 ? "col-span-2 row-span-2" : "col-span-1 h-[350px]"
             } group cursor-pointer`}
+            onClick={() => navigate("/cars/details/1")}
           >
             <div
               className={
                 " h-full w-full bg-[url('./src/assets/evo-spyder.jpg')] bg-cover bg-center bg-no-repeat duration-300 ease-in group-hover:scale-110"
               }
-            ></div>
-            <div
-              className={
-                "absolute bottom-0 flex h-[120px] w-full flex-col items-start justify-center gap-4 bg-card p-4"
-              }
-            >
-              <p className={"text-lg font-semibold leading-none tracking-wide"}>
-                <span className={"font-bold text-primary"}>Lamborghini</span> HURACÁN EVO SPYDER
-              </p>
-              <Separator className={"bg-accent dark:bg-background"} />
-              <div className={"flex w-full flex-row items-center justify-between"}>
-                <p className={"text-2xl font-medium"}>$6300</p>
-                <div className={"flex flex-row gap-4"}>
-                  <Button>Rent</Button>
-                  <Button
-                    variant={"outline"}
-                    className={"border-ring bg-transparent hover:bg-background"}
-                  >
-                    Servicing
-                  </Button>
-                </div>
-              </div>
-            </div>
+            />
+            <CarCardBottom index={index} />
           </div>
         ))}
       </div>

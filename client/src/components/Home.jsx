@@ -6,8 +6,12 @@ const Home = () => {
   const navigate = useNavigate();
   return (
     <div className={"mt-20"}>
-      <div className={"mx-[8rem] flex h-[500px] flex-row items-center justify-between gap-[12rem]"}>
-        <div className={"flex flex-col items-start justify-center gap-6"}>
+      <div
+        className={
+          "flex h-[600px] flex-row items-center justify-between gap-[12rem] rounded-b-2xl bg-card px-[8rem] pb-[4rem]"
+        }
+      >
+        <div className={"flex flex-col items-start justify-center gap-10"}>
           <h1 className={"text-7xl font-[900] capitalize"}>
             Find your <span className={"text-primary"}>perfect</span> car
           </h1>
@@ -17,7 +21,9 @@ const Home = () => {
           </p>
           <Button
             variant={"outline"}
-            className={"text-md mt-2 h-[50px] w-[150px] border-primary"}
+            className={
+              "text-md mt-2 h-[50px] w-[150px] border-primary bg-transparent hover:bg-background"
+            }
             onClick={() => navigate("/cars")}
           >
             Browse
