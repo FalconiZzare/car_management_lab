@@ -48,8 +48,8 @@ const Users = () => {
                   <TableCell>Talat</TableCell>
                   <TableCell>Mahmud</TableCell>
                   <TableCell>FalconiZzare</TableCell>
-                  <TableCell className={"w-[300px]"}>talat@octopi.ai</TableCell>
-                  <TableCell className={"flex w-[120px] text-center"}>
+                  <TableCell>talat@octopi.ai</TableCell>
+                  <TableCell className={"flex w-[170px] text-center"}>
                     <Menubar className={"border-none bg-transparent"}>
                       <MenubarMenu>
                         <MenubarTrigger asChild>
