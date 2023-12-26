@@ -68,3 +68,10 @@ export const parts = [
     price: 150
   }
 ];
+
+export const user = {
+  "First Name": "Talat",
+  "Last Name": "Mahmud",
+  Username: "FalconiZzare",
+  Email: "talat@octopi.ai"
+};

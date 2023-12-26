@@ -8,3 +8,22 @@ export const header = [
     href: "/cars"
   }
 ];
+
+export const popover = [
+  {
+    name: "Profile",
+    href: "/users/1"
+  },
+  {
+    name: "Dashboard",
+    href: "/admin"
+  },
+  {
+    name: "Rented Cars",
+    href: "/rent/list/1"
+  },
+  {
+    name: "Users",
+    href: "/users"
+  }
+];

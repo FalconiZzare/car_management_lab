@@ -7,18 +7,32 @@ import {
 } from "@/components/ui/navigation-menu.jsx";
 import { cn } from "@/lib/utils.js";
 import { Link } from "react-router-dom";
-import { header } from "@/constants/HeaderData.js";
-import { User } from "lucide-react";
+import { header, popover } from "@/constants/HeaderData.js";
+import { BaggageClaim, LayoutDashboard, LogOut, User, UserRound, UsersRound } from "lucide-react";
 import { Separator } from "@/components/ui/separator.jsx";
 import { ModeToggle } from "@/hooks/ModeToggle.jsx";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar.jsx";
 import { Button } from "@/components/ui/button.jsx";
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarTrigger
+} from "@/components/ui/menubar.jsx";
 
 const Header = ({ path }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const renderHeader = !["/login", "/signup"].includes(path);
 
   if (!renderHeader) return null;
+
+  const iconMapping = {
+    Profile: <UserRound className={"text-green-500"} />,
+    Dashboard: <LayoutDashboard className={"text-blue-500"} />,
+    "Rented Cars": <BaggageClaim className={"text-primary"} />,
+    Users: <UsersRound className={"text-red-600"} />
+  };
 
   return (
     <header
@@ -50,15 +64,51 @@ const Header = ({ path }) => {
           </NavigationMenuList>
         </NavigationMenu>
         {isLoggedIn ? (
-          <Button variant={"outline"} className={"border-accent bg-transparent"}>
-            <div className={"flex flex-row items-center justify-center gap-4"}>
-              <Avatar className={"size-7"}>
-                <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                <AvatarFallback>FZ</AvatarFallback>
-              </Avatar>
-              <p>FalconiZzare</p>
-            </div>
-          </Button>
+          <div className={"flex flex-row gap-2"}>
+            <Menubar className={"border-none bg-transparent"}>
+              <MenubarMenu>
+                <MenubarTrigger asChild>
+                  <Button
+                    variant={"outline"}
+                    className={"cursor-pointer border-accent bg-transparent"}
+                  >
+                    <div className={"flex flex-row items-center justify-center gap-4"}>
+                      <Avatar className={"size-7"}>
+                        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                        <AvatarFallback>FZ</AvatarFallback>
+                      </Avatar>
+                      <p>FalconiZzare</p>
+                    </div>
+                  </Button>
+                </MenubarTrigger>
+                <MenubarContent
+                  align={"center"}
+                  className={"flex flex-col items-center gap-3 border-card bg-background px-6 py-4"}
+                >
+                  {popover.map((item, index) => (
+                    <MenubarItem asChild className={"focus:bg-transparent"}>
+                      <Link to={item.href} className={"bg-transparent"} key={index}>
+                        <Button
+                          variant={"outline"}
+                          className={"w-[200px] justify-start gap-5 border-card pl-8"}
+                        >
+                          {iconMapping[item.name]}
+                          {item.name}
+                        </Button>
+                      </Link>
+                    </MenubarItem>
+                  ))}
+                </MenubarContent>
+              </MenubarMenu>
+            </Menubar>
+            <Button
+              variant={"outline"}
+              className={"border-accent bg-transparent"}
+              onClick={() => setIsLoggedIn(false)}
+            >
+              <LogOut className={"ml-1 size-5"} />
+            </Button>
+          </div>
         ) : (
           <div className={"flex flex-row items-center justify-center gap-4"}>
             <User className={"text-primary"} />
