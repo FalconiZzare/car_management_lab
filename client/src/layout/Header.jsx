@@ -52,8 +52,8 @@ const Header = ({ path }) => {
           <NavigationMenuList className={"gap-2"}>
             {header.map((item, index) => (
               <NavigationMenuLink
-                asChild
                 key={index}
+                asChild
                 className={cn("cursor-pointer", navigationMenuTriggerStyle())}
               >
                 <Link to={item.href} className={"bg-transparent"}>
@@ -86,8 +86,8 @@ const Header = ({ path }) => {
                   className={"flex flex-col items-center gap-3 border-card bg-background px-6 py-4"}
                 >
                   {popover.map((item, index) => (
-                    <MenubarItem asChild className={"focus:bg-transparent"}>
-                      <Link to={item.href} className={"bg-transparent"} key={index}>
+                    <MenubarItem asChild key={index} className={"focus:bg-transparent"}>
+                      <Link to={item.href} className={"bg-transparent"} >
                         <Button
                           variant={"outline"}
                           className={"w-[200px] justify-start gap-5 border-card pl-8"}

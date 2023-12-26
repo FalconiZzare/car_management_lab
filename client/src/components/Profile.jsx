@@ -34,7 +34,7 @@ const Profile = () => {
             <div key={index} className={"flex flex-col gap-3"}>
               <Label>{key}</Label>
               {isEdit ? (
-                <Input type={"text"} value={user[key]} className={"w-56"} />
+                <Input type={"text"} defaultValue={user[key]} className={"w-56"} />
               ) : (
                 <div
                   className={
