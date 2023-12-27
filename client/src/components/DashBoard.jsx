@@ -18,7 +18,7 @@ const DashBoard = () => {
       >
         <div className={"flex w-full flex-col gap-10"}>
           <p className={"text-3xl"}>Add Make and Part To Database</p>
-          <div className={"flex w-full items-start justify-between"}>
+          <div className={"flex w-full items-start justify-start gap-[12rem]"}>
             <div className={"flex flex-col gap-2"}>
               <Label className={"text-lg"}>Add A Make</Label>
               <div className={"flex items-center justify-center gap-4"}>
@@ -26,15 +26,15 @@ const DashBoard = () => {
                 <Button>Add Make</Button>
               </div>
             </div>
-            <div className={"flex items-end gap-6"}>
-              <div className={"flex flex-col justify-center gap-2"}>
+            <div className={"flex flex-col items-start gap-6"}>
+              <div className={"flex flex-col justify-center gap-2 w-full"}>
                 <Label className={"text-lg"}>Select A Make</Label>
                 <DropDown
                   data={makes}
                   placeholder={"make"}
                   value={make}
                   setValue={setMake}
-                  widthInPx={200}
+                  widthInPx={300}
                 />
               </div>
               <div className={"flex flex-col justify-center gap-2"}>
