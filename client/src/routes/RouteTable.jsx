@@ -11,6 +11,7 @@ import Servicing from "@/components/Servicing.jsx";
 import Profile from "@/components/Profile.jsx";
 import RentList from "@/components/RentList.jsx";
 import Users from "@/components/Users.jsx";
+import DashBoard from "@/components/DashBoard.jsx";
 
 const RouteTable = () => {
   const location = useLocation();
@@ -37,6 +38,7 @@ const RouteTable = () => {
         <Route path={"/users/:id"} element={<Profile />} />
         <Route path={"/rent/list/:id"} element={<RentList />} />
         <Route path={"/users"} element={<Users />} />
+        <Route path={"/admin"} element={<DashBoard />} />
       </Routes>
       <Footer path={location.pathname} />
     </>

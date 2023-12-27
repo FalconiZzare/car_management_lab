@@ -87,7 +87,7 @@ const Header = ({ path }) => {
                 >
                   {popover.map((item, index) => (
                     <MenubarItem asChild key={index} className={"focus:bg-transparent"}>
-                      <Link to={item.href} className={"bg-transparent"} >
+                      <Link to={item.href} className={"bg-transparent"}>
                         <Button
                           variant={"outline"}
                           className={"w-[200px] justify-start gap-5 border-card pl-8"}
