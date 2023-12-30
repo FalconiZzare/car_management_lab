@@ -1,6 +1,6 @@
 const config = {
-  user: "admin",
-  password: "root",
+  user: "root",
+  password: "",
   database: "car_management",
   host: "localhost",
   connectionLimit: 10,
