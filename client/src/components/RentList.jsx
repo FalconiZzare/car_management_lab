@@ -41,11 +41,18 @@ const RentList = () => {
                   <TableCell>2023-12-19</TableCell>
                   <TableCell className={"text-center"}>
                     <Button
-                      variant={"ghost"}
+                      variant={"outline"}
                       onClick={() => console.log("Added")}
-                      className={"hover:bg-background"}
+                      className={
+                        "group gap-2 border border-foreground bg-card transition duration-300 ease-in-out hover:bg-background"
+                      }
                     >
-                      <Redo2 />
+                      <Redo2
+                        className={
+                          "mb-1 transition duration-300 ease-in-out group-hover:text-primary"
+                        }
+                      />
+                      Return
                     </Button>
                   </TableCell>
                 </TableRow>

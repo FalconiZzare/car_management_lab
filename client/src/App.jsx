@@ -1,6 +1,7 @@
 import { ThemeProvider } from "@/hooks/ThemeProvider.jsx";
 import { BrowserRouter } from "react-router-dom";
 import RouteTable from "@/routes/RouteTable.jsx";
+import { Toaster } from "@/components/ui/sonner.jsx";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         disableTransitionOnChange={false}
       >
         <RouteTable />
+        <Toaster position={"top-center"} closeButton />
       </ThemeProvider>
     </BrowserRouter>
   );

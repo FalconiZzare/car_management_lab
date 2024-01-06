@@ -25,16 +25,17 @@ const Cars = () => {
           placeholder={"make"}
           value={make}
           setValue={setMake}
-          widthInPx={300}
+          widthClassName={"w-[220px]"}
         />
         <DropDown
           data={models}
           placeholder={"model"}
           value={model}
           setValue={setModel}
-          widthInPx={300}
+          widthClassName={"w-[220px]"}
+          disabled={true}
         />
-        <Separator orientation={"vertical"} className={"h-[50px] w-[3px] bg-background"} />
+        <Separator orientation={"vertical"} className={"h-[50px] w-[2px] bg-background"} />
         <div className="flex w-full max-w-xl items-center space-x-2">
           <Input type="text" placeholder="Search by car name" className={""} />
           <Button

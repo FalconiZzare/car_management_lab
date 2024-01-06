@@ -45,8 +45,8 @@ const Footer = ({ path }) => {
           <h1 className={"text-3xl font-bold"}>
             +88 <span className={"text-primary"}>01739-527825</span>
           </h1>
-          <p className={"text-lg font-light"}>support@mayerdua.com</p>
-          <div className={"flex flex-col items-end text-lg font-light"}>
+          <p className={"font-light"}>support@mayerdua.com</p>
+          <div className={"flex flex-col items-end font-light"}>
             <p>Block B, Plot 69420</p>
             <p>Bashundhara R/A, Dhaka</p>
           </div>

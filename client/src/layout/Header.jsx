@@ -20,6 +20,8 @@ import {
   MenubarMenu,
   MenubarTrigger
 } from "@/components/ui/menubar.jsx";
+import { toast } from "sonner";
+import { CheckCircle } from "lucide-react";
 
 const Header = ({ path }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -27,17 +29,23 @@ const Header = ({ path }) => {
 
   if (!renderHeader) return null;
 
-  const iconMapping = {
+  const popoverIconMapping = {
     Profile: <UserRound className={"text-green-500"} />,
-    Dashboard: <LayoutDashboard className={"text-blue-500"} />,
+    Management: <LayoutDashboard className={"text-blue-500"} />,
     "Rented Cars": <BaggageClaim className={"text-primary"} />,
-    Users: <UsersRound className={"text-red-600"} />
+    "Client List": <UsersRound className={"text-red-600"} />
+  };
+
+  const handleToast = () => {
+    toast("Event has been created!", {
+      icon: <CheckCircle className={"size-5 text-green-500"} />
+    });
   };
 
   return (
     <header
       className={
-        "fixed top-0 z-50 flex h-20 w-full flex-row items-center justify-between border-b border-card px-20 backdrop-blur-xl"
+        "fixed top-0 z-50 flex h-20 w-full flex-row items-center justify-between border-b border-card bg-[hsl(223,10%,14%)] bg-opacity-45 px-20 backdrop-blur-xl"
       }
     >
       <Link to={"/"}>
@@ -54,7 +62,7 @@ const Header = ({ path }) => {
               <NavigationMenuLink
                 key={index}
                 asChild
-                className={cn("cursor-pointer", navigationMenuTriggerStyle())}
+                className={cn("cursor-pointer border border-accent", navigationMenuTriggerStyle())}
               >
                 <Link to={item.href} className={"bg-transparent"}>
                   {item.name}
@@ -92,12 +100,23 @@ const Header = ({ path }) => {
                           variant={"outline"}
                           className={"w-[200px] justify-start gap-5 border-card pl-8"}
                         >
-                          {iconMapping[item.name]}
+                          {popoverIconMapping[item.name]}
                           {item.name}
                         </Button>
                       </Link>
                     </MenubarItem>
                   ))}
+                  <MenubarItem asChild className={"focus:bg-transparent"}>
+                    <Link className={"bg-transparent"} to={""}>
+                      <Button
+                        onClick={handleToast}
+                        variant={"outline"}
+                        className={"w-[200px] justify-start gap-5 border-card pl-8"}
+                      >
+                        Sonner
+                      </Button>
+                    </Link>
+                  </MenubarItem>
                 </MenubarContent>
               </MenubarMenu>
             </Menubar>
@@ -110,8 +129,12 @@ const Header = ({ path }) => {
             </Button>
           </div>
         ) : (
-          <div className={"flex flex-row items-center justify-center gap-4"}>
-            <User className={"text-primary"} />
+          <div
+            className={
+              "flex h-10 flex-row items-center justify-center gap-4 rounded-md border border-accent px-4 py-2 text-sm font-medium"
+            }
+          >
+            <User className={"size-5 text-primary"} />
             <Link to={"/login"} className={"duration-150 ease-in-out hover:text-primary"}>
               Log In
             </Link>

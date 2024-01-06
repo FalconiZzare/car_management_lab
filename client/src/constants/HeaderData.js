@@ -15,7 +15,7 @@ export const popover = [
     href: "/users/1"
   },
   {
-    name: "Dashboard",
+    name: "Management",
     href: "/admin"
   },
   {
@@ -23,7 +23,7 @@ export const popover = [
     href: "/rent/list/1"
   },
   {
-    name: "Users",
+    name: "Client List",
     href: "/users"
   }
 ];

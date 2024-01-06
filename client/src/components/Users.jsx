@@ -56,7 +56,7 @@ const Users = () => {
                           <Button
                             variant={"outline"}
                             className={
-                              "mr-3 cursor-pointer gap-2 border-foreground bg-transparent hover:bg-background"
+                              "mr-3 w-28 cursor-pointer gap-2 border-foreground bg-transparent hover:bg-background"
                             }
                           >
                             {index % 2 === 0 ? (
@@ -75,14 +75,14 @@ const Users = () => {
                         <MenubarContent
                           align={"center"}
                           className={
-                            "flex flex-col items-center border-background bg-card px-3 py-2"
+                            "flex flex-col items-center border-foreground bg-card px-3 py-2"
                           }
                         >
                           <MenubarItem className={"focus:bg-transparent"}>
                             <Button
                               variant={"outline"}
                               className={
-                                "w-[150px] cursor-pointer justify-start gap-5 border-background bg-transparent pl-8 hover:bg-background"
+                                "w-[150px] cursor-pointer justify-start gap-5 border-foreground bg-transparent pl-8 hover:bg-background"
                               }
                             >
                               <Shield className={"size-5 text-primary"} />
@@ -93,7 +93,7 @@ const Users = () => {
                             <Button
                               variant={"outline"}
                               className={
-                                "w-[150px] cursor-pointer justify-start gap-5 border-background bg-transparent pl-8 hover:bg-background"
+                                "w-[150px] cursor-pointer justify-start gap-5 border-foreground bg-transparent pl-8 hover:bg-background"
                               }
                             >
                               <User className={"size-5 text-green-500"} />

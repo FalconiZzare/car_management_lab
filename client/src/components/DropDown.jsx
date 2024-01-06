@@ -12,22 +12,25 @@ import {
 } from "@/components/ui/command.jsx";
 import PropTypes from "prop-types";
 
-const DropDown = ({ data, placeholder, value, setValue, widthInPx }) => {
+const DropDown = ({ data, placeholder, value, setValue, widthClassName, disabled }) => {
   const [open, setOpen] = useState(false);
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={disabled ? !disabled : open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className={`w-[${widthInPx}px] justify-between`}
-        >
-          {value ? data.find((data) => data.value === value)?.label : `Select a ${placeholder}`}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
+        <div className={disabled && "cursor-no-drop"}>
+          <Button
+            disabled={disabled}
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className={cn("select-none justify-between", widthClassName)}
+          >
+            {value ? data.find((data) => data.value === value)?.label : `Select a ${placeholder}`}
+            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          </Button>
+        </div>
       </PopoverTrigger>
-      <PopoverContent className={`w-[${widthInPx}px] border-background p-0`}>
+      <PopoverContent className={cn("border-background p-0", widthClassName)}>
         <Command>
           <CommandInput
             placeholder={`Search a ${placeholder}`}
@@ -63,7 +66,7 @@ DropDown.propTypes = {
   placeholder: PropTypes.string.isRequired,
   value: PropTypes.any.isRequired,
   setValue: PropTypes.func.isRequired,
-  widthInPx: PropTypes.number.isRequired
+  widthClassName: PropTypes.string.isRequired
 };
 
 export default DropDown;
