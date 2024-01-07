@@ -19,7 +19,7 @@ exports.addUser = async (req, res) => {
 
     if (userFound?.length > 0) {
       return res.status(400).json({
-        message: "A user already exists with this username/email!",
+        message: "User already exists with this username or email!",
         success: false,
         data: {}
       });
@@ -31,7 +31,7 @@ exports.addUser = async (req, res) => {
     `);
 
     res.status(200).json({
-      message: "User created successfully!",
+      message: "Signed up successfully!",
       success: true
     });
   } catch (error) {
