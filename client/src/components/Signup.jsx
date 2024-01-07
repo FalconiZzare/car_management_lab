@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AuthDescription from "@/components/AuthDescription.jsx";
 import { Input } from "@/components/ui/input.jsx";
 import { Button } from "@/components/ui/button.jsx";
@@ -18,12 +18,7 @@ const Signup = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const {
-    mutate: handleSignup,
-    isPending,
-    isError,
-    error
-  } = useMutation({
+  const { mutate: handleSignup, isPending } = useMutation({
     mutationKey: ["signup"],
     mutationFn: () => {
       const signupFormData = new FormData();
@@ -39,16 +34,13 @@ const Signup = () => {
         icon: <CheckCircle className={"size-5 text-green-500"} />
       });
       navigate("/login");
-    }
-  });
-
-  useEffect(() => {
-    if (isError) {
-      toast(error?.response.data.message, {
+    },
+    onError: (error) => {
+      toast(error?.response?.data?.message, {
         icon: <AlertTriangle className={"size-5 text-red-500"} />
       });
     }
-  }, [isError]);
+  });
 
   return (
     <div className={"container flex h-dvh w-full flex-col items-center justify-center"}>

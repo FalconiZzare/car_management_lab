@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AuthDescription from "@/components/AuthDescription.jsx";
 import { Input } from "@/components/ui/input.jsx";
 import { Button } from "@/components/ui/button.jsx";
@@ -16,12 +16,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
 
-  const {
-    mutate: handleLogin,
-    isPending,
-    isError,
-    error
-  } = useMutation({
+  const { mutate: handleLogin, isPending } = useMutation({
     mutationKey: ["login"],
     mutationFn: () => {
       const loginFormData = new FormData();
@@ -33,16 +28,13 @@ const Login = () => {
     onSuccess: (data) => {
       setLocalStorageItem("x-user-id", data?.data.data.id);
       navigate(-1);
-    }
-  });
-
-  useEffect(() => {
-    if (isError) {
-      toast(error?.response.data.message, {
+    },
+    onError: (error) => {
+      toast(error?.response?.data?.message, {
         icon: <AlertTriangle className={"size-5 text-red-500"} />
       });
     }
-  }, [isError]);
+  });
 
   return (
     <div className={"container flex h-dvh w-full flex-col items-center justify-center"}>
