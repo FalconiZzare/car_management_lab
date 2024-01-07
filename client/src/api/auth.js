@@ -13,3 +13,9 @@ export const signup = async (data) => {
     headers: noAuthHeader()
   });
 };
+
+export const getUser = async (id) => {
+  return await axios.get(`${base_url}/auth/user?id=${id}`, {
+    headers: noAuthHeader()
+  });
+};

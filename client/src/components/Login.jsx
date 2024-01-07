@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import AuthDescription from "@/components/AuthDescription.jsx";
 import { Input } from "@/components/ui/input.jsx";
 import { Button } from "@/components/ui/button.jsx";
@@ -7,10 +7,12 @@ import { login } from "@/api/auth.js";
 import { setLocalStorageItem } from "@/utils/utils.js";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { UserContext } from "@/App.jsx";
 import { AlertTriangle, Eye, EyeOff, Mail } from "lucide-react";
 import "ldrs/helix";
 
 const Login = () => {
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +28,8 @@ const Login = () => {
       return login(loginFormData);
     },
     onSuccess: (data) => {
-      setLocalStorageItem("x-user-id", data?.data.data.id);
+      setLocalStorageItem("x-user-id", data?.data.id);
+      setUser(data?.data.id);
       navigate(-1);
     },
     onError: (error) => {

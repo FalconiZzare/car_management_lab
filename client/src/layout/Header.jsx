@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext } from "react";
 import {
   NavigationMenu,
   NavigationMenuLink,
@@ -20,11 +20,11 @@ import {
   MenubarMenu,
   MenubarTrigger
 } from "@/components/ui/menubar.jsx";
-import { toast } from "sonner";
-import { CheckCircle } from "lucide-react";
+import { UserContext } from "@/App.jsx";
+import { getAvatarFallback, removeLocalStorageItem } from "@/utils/utils.js";
 
 const Header = ({ path }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const { user, setUser } = useContext(UserContext);
   const renderHeader = !["/login", "/signup"].includes(path);
 
   if (!renderHeader) return null;
@@ -36,11 +36,7 @@ const Header = ({ path }) => {
     "Client List": <UsersRound className={"text-red-600"} />
   };
 
-  const handleToast = () => {
-    toast("Event has been created!", {
-      icon: <CheckCircle className={"size-5 text-green-500"} />
-    });
-  };
+  const initials = user && getAvatarFallback(`${user.fname} ${user.lname}`);
 
   return (
     <header
@@ -71,7 +67,7 @@ const Header = ({ path }) => {
             ))}
           </NavigationMenuList>
         </NavigationMenu>
-        {isLoggedIn ? (
+        {user ? (
           <div className={"flex flex-row gap-2"}>
             <Menubar className={"border-none bg-transparent"}>
               <MenubarMenu>
@@ -82,8 +78,8 @@ const Header = ({ path }) => {
                   >
                     <div className={"flex flex-row items-center justify-center gap-4"}>
                       <Avatar className={"size-7"}>
-                        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                        <AvatarFallback>FZ</AvatarFallback>
+                        <AvatarImage src="https://github.com/shadcn.png" alt={initials} />
+                        <AvatarFallback>{initials}</AvatarFallback>
                       </Avatar>
                       <p>FalconiZzare</p>
                     </div>
@@ -106,24 +102,16 @@ const Header = ({ path }) => {
                       </Link>
                     </MenubarItem>
                   ))}
-                  <MenubarItem asChild className={"focus:bg-transparent"}>
-                    <Link className={"bg-transparent"} to={""}>
-                      <Button
-                        onClick={handleToast}
-                        variant={"outline"}
-                        className={"w-[200px] justify-start gap-5 border-card pl-8"}
-                      >
-                        Sonner
-                      </Button>
-                    </Link>
-                  </MenubarItem>
                 </MenubarContent>
               </MenubarMenu>
             </Menubar>
             <Button
               variant={"outline"}
               className={"border-accent bg-transparent"}
-              onClick={() => setIsLoggedIn(false)}
+              onClick={() => {
+                removeLocalStorageItem("x-user-id");
+                setUser(null);
+              }}
             >
               <LogOut className={"ml-1 size-5"} />
             </Button>

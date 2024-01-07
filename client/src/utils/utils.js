@@ -20,3 +20,8 @@ export const removeLocalStorageItem = (item) => {
     localStorage.removeItem(item);
   }
 };
+
+export const getAvatarFallback = (string) => {
+  const parts = string.split(" ");
+  return `${parts[0].charAt(0)}${parts[1] ? parts[1].charAt(0) : ""}`;
+};

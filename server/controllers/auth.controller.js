@@ -69,7 +69,7 @@ exports.postLogin = async (req, res) => {
       return res.status(200).json({
         message: "Login successful!",
         success: true,
-        data: user[0]
+        id: user[0].id
       });
     } else {
       return res.status(400).json({
@@ -87,9 +87,9 @@ exports.postLogin = async (req, res) => {
 exports.getUser = async (req, res) => {
   try {
     const user = await executeQuery(`
-        SELECT users.id, username, email, roleId, roles.role
+        SELECT users.id, fname, lname, username, email, roleId, roles.role
         FROM users
-                 JOIN roles on users.roleId = roles.id
+        JOIN roles on users.roleId = roles.id
         WHERE users.id = '${req.query.id}'
     `);
 

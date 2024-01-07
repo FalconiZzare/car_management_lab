@@ -12,6 +12,7 @@ import Profile from "@/components/Profile.jsx";
 import RentList from "@/components/RentList.jsx";
 import Users from "@/components/Users.jsx";
 import DashBoard from "@/components/DashBoard.jsx";
+import NotFound from "@/layout/NotFound.jsx";
 
 const RouteTable = () => {
   const location = useLocation();
@@ -39,6 +40,7 @@ const RouteTable = () => {
         <Route path={"/rent/list/:id"} element={<RentList />} />
         <Route path={"/users"} element={<Users />} />
         <Route path={"/admin"} element={<DashBoard />} />
+        <Route path={"*"} element={<NotFound />} />
       </Routes>
       <Footer path={location.pathname} />
     </>
