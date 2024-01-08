@@ -14,7 +14,7 @@ const RentList = () => {
     <div className={"mt-24"}>
       <div
         className={
-          "mx-[8rem] mb-4 flex flex-col items-start justify-start gap-8 rounded-2xl bg-card p-10"
+          "mx-[4rem] mb-4 flex flex-col items-start justify-start gap-8 rounded-2xl bg-card p-10"
         }
       >
         <div>

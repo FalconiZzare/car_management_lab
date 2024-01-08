@@ -36,7 +36,7 @@ const RouteTable = () => {
         <Route path={"/cars"} element={<Cars />} />
         <Route path={"/cars/details/:id"} element={<CarDetails />} />
         <Route path={"/cars/servicing/:id"} element={<Servicing />} />
-        <Route path={"/users/:id"} element={<Profile />} />
+        <Route path={"/profile"} element={<Profile />} />
         <Route path={"/rent/list/:id"} element={<RentList />} />
         <Route path={"/users"} element={<Users />} />
         <Route path={"/admin"} element={<DashBoard />} />

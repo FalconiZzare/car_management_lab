@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button.jsx";
 import { useNavigate } from "react-router-dom";
 import FeaturedListings from "@/components/FeaturedListings.jsx";
+import Mosaic from "@/assets/bg-1920-new.jpg";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -8,7 +9,7 @@ const Home = () => {
     <div className={"mt-20"}>
       <div
         className={
-          "flex h-[600px] flex-row items-center justify-between gap-[12rem] rounded-b-2xl bg-card px-[8rem] pb-[4rem]"
+          "flex h-[600px] flex-row items-center justify-between gap-[12rem] rounded-b-2xl bg-card px-[4rem] pb-[4rem]"
         }
       >
         <div className={"flex flex-col items-start justify-center gap-10"}>
@@ -31,11 +32,17 @@ const Home = () => {
         </div>
         <div
           className={
-            "mt-[4rem] h-[400px] w-[500px] rounded-2xl bg-[url('./src/assets/bg-1920-new.jpg')] bg-cover bg-center bg-no-repeat shadow-[0_0_15px_1px_rgba(0,0,0,0.40)]"
+            "mt-[4rem] h-[400px] w-[500px] select-none overflow-hidden rounded-2xl shadow-[0_0_15px_1px_rgba(0,0,0,0.40)]"
           }
-        />
+        >
+          <img
+            src={Mosaic}
+            alt={"mosaic.png"}
+            className={"pointer-events-none h-full object-cover"}
+          />
+        </div>
       </div>
-      <div className={"mx-[8rem] mt-[4rem]"}>
+      <div className={"mx-[4rem] mt-[4rem]"}>
         <FeaturedListings />
       </div>
     </div>

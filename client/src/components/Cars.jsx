@@ -17,7 +17,7 @@ const Cars = () => {
     <div className={"mt-24"}>
       <div
         className={
-          "mx-[8rem] mb-8 flex flex-row items-center justify-center gap-10 rounded-2xl bg-card py-10"
+          "mx-[4rem] mb-8 flex flex-row items-center justify-center gap-10 rounded-2xl bg-card py-10"
         }
       >
         <DropDown
@@ -48,7 +48,7 @@ const Cars = () => {
           </Button>
         </div>
       </div>
-      <div className={"mx-[8rem] mb-6 flex flex-col gap-10"}>
+      <div className={"mx-[4rem] mb-6 flex flex-col gap-10"}>
         <p className={"text-5xl font-bold tracking-wider"}>Car Gallery</p>
         <div className={"grid grid-cols-4 gap-x-6"}>
           {Array.from({ length: 16 }).map((item, index) => (

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import CarCardBottom from "@/components/CarCardBottom.jsx";
+import Evo from "@/assets/evo-spyder.jpg";
 
 const FeaturedListings = () => {
   const navigate = useNavigate();
@@ -22,7 +23,9 @@ const FeaturedListings = () => {
               className={
                 " h-full w-full bg-[url('./src/assets/evo-spyder.jpg')] bg-cover bg-center bg-no-repeat duration-300 ease-in group-hover:scale-110"
               }
-            />
+            >
+              <img src={Evo} alt={"Evo"} className={"h-full object-cover"} />
+            </div>
             <CarCardBottom index={index} />
           </div>
         ))}

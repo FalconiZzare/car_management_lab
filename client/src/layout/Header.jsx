@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/menubar.jsx";
 import { UserContext } from "@/App.jsx";
 import { getAvatarFallback, removeLocalStorageItem } from "@/utils/utils.js";
+import Logo from "@/assets/logo.png";
 
 const Header = ({ path }) => {
   const { user, setUser } = useContext(UserContext);
@@ -41,15 +42,13 @@ const Header = ({ path }) => {
   return (
     <header
       className={
-        "fixed top-0 z-50 flex h-20 w-full flex-row items-center justify-between border-b border-card bg-[hsl(223,10%,14%)] bg-opacity-45 px-20 backdrop-blur-xl"
+        "fixed top-0 z-50 flex h-20 w-full flex-row items-center justify-between border-b border-card bg-[hsl(223,10%,14%)] bg-opacity-45 px-16 backdrop-blur-xl"
       }
     >
       <Link to={"/"}>
-        <div
-          className={
-            "mt-1 h-[65px] w-[200px] bg-[url('./src/assets/logo.png')] bg-contain bg-center bg-no-repeat"
-          }
-        />
+        <div className={"mt-1 h-[65px] w-[200px]"}>
+          <img src={Logo} alt={"logo.png"} className={"pointer-events-none h-full select-none"} />
+        </div>
       </Link>
       <div className={"flex flex-row items-center justify-center gap-10"}>
         <NavigationMenu>

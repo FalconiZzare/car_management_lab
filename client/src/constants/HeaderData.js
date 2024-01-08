@@ -12,7 +12,7 @@ export const header = [
 export const popover = [
   {
     name: "Profile",
-    href: "/users/1"
+    href: "/profile"
   },
   {
     name: "Management",

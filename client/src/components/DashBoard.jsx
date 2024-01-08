@@ -19,7 +19,7 @@ const DashBoard = () => {
 
   return (
     <div className={"mt-24"}>
-      <div className={"mx-[8rem] mb-8 flex flex-col items-start justify-start gap-[4rem] pt-6"}>
+      <div className={"mx-[4rem] mb-8 flex flex-col items-start justify-start gap-[4rem] pt-6"}>
         <div className={"flex w-full flex-col gap-6 rounded-2xl bg-card p-10"}>
           <p className={"text-3xl"}>Add A Make</p>
           <div className={"flex items-center justify-start gap-4"}>

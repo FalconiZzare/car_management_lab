@@ -7,10 +7,10 @@ const CarDetails = () => {
     <div className={"mt-24"}>
       <div
         className={
-          "mx-[8rem] mb-4 flex h-[700px] flex-row items-center justify-around rounded-2xl bg-card p-10"
+          "mx-[8rem] mb-4 flex h-[700px] select-none flex-row items-center justify-around rounded-2xl bg-card p-10"
         }
       >
-        <img src={Car} alt={"car"} className={"max-w-[800px]  rounded-2xl"} />
+        <img src={Car} alt={"car"} className={"pointer-events-none max-w-[800px] rounded-2xl"} />
         <div className={"flex w-4/12 flex-col items-center gap-6"}>
           <p className={"text-3xl font-extralight"}>
             <span className={"text-primary"}>Lamborghini</span> HURACÁN EVO SPYDER

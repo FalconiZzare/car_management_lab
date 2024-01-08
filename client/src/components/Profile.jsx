@@ -12,7 +12,7 @@ const Profile = () => {
     <div className={"mt-24"}>
       <div
         className={
-          "mx-[8rem] mb-4 flex h-[524px] flex-col items-center justify-center gap-10 rounded-2xl bg-card p-10"
+          "mx-[4rem] mb-4 flex h-[524px] flex-col items-center justify-center gap-10 rounded-2xl bg-card p-10"
         }
       >
         <Avatar

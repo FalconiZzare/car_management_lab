@@ -3,6 +3,7 @@ import { header } from "@/constants/HeaderData.js";
 import { Dot, Facebook, Instagram, Twitter } from "lucide-react";
 import { Separator } from "@/components/ui/separator.jsx";
 import { Button } from "@/components/ui/button.jsx";
+import Logo from "@/assets/logo.png";
 
 const Footer = ({ path }) => {
   const navigate = useNavigate();
@@ -13,16 +14,14 @@ const Footer = ({ path }) => {
   return (
     <footer
       className={
-        "z-50 flex w-full flex-col justify-center gap-6 rounded-t-2xl border-t border-card px-[8rem] py-6"
+        "z-50 flex w-full flex-col justify-center gap-6 rounded-t-2xl border-t border-card px-[4rem] py-6"
       }
     >
       <div className={"flex flex-row items-center justify-between"}>
         <Link to={"/"}>
-          <div
-            className={
-              "mt-1 h-[90px] w-[200px] bg-[url('./src/assets/logo.png')] bg-contain bg-center bg-no-repeat"
-            }
-          />
+          <div className={"mt-1 h-[90px] w-[200px]"}>
+            <img src={Logo} alt={"logo.png"} className={"pointer-events-none h-full select-none"} />
+          </div>
         </Link>
         <div>
           {header.map((item, index) => (

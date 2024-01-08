@@ -10,7 +10,7 @@ const NotFound = ({ message }) => {
     <div className={"mt-24 select-none"}>
       <div
         className={
-          "mx-[8rem] mb-4 flex flex-col items-center justify-center gap-20 rounded-2xl bg-card py-24"
+          "mx-[4rem] mb-4 flex flex-col items-center justify-center gap-20 rounded-2xl bg-card py-24"
         }
       >
         <h1 className={"text-4xl font-medium"}>

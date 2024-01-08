@@ -3,7 +3,7 @@ import { ThemeProvider } from "@/hooks/ThemeProvider.jsx";
 import { BrowserRouter } from "react-router-dom";
 import RouteTable from "@/routes/RouteTable.jsx";
 import { Toaster } from "@/components/ui/sonner.jsx";
-import { useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { getUser } from "@/api/auth.js";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { getLocalStorageItem } from "@/utils/utils.js";
@@ -14,25 +14,16 @@ function App() {
   const [user, setUser] = useState(null);
   const id = getLocalStorageItem("x-user-id");
 
-  const { mutate } = useMutation({
-    mutationKey: ["getUser"],
-    mutationFn: () => {
-      return getUser(id);
-    },
-    onSuccess: (data) => {
-      setUser(data?.data.data);
-    },
-    onError: () => {
-      setUser(null);
-    }
+  const { isSuccess, isError, data } = useQuery({
+    queryKey: ["getUser", id],
+    queryFn: () => getUser(id)
   });
 
   useEffect(() => {
-    if (id) mutate();
-    else setUser(null);
-  }, [id]);
+    if (isSuccess) setUser(data?.data.data);
 
-  console.log(user);
+    if (isError) setUser(null);
+  }, [id, data, isError, isSuccess]);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

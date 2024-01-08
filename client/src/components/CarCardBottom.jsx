@@ -10,7 +10,7 @@ const CarCardBottom = ({ index }) => {
   return (
     <div
       className={
-        "absolute bottom-0 flex h-[120px] w-full flex-col items-start justify-center gap-4 bg-card p-4"
+        "absolute bottom-0 flex h-[120px] w-full flex-col items-start justify-center gap-3 bg-card p-4"
       }
     >
       <p className={"text-lg font-semibold leading-none tracking-wide"}>
