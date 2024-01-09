@@ -70,8 +70,9 @@ export const parts = [
 ];
 
 export const user = {
-  "First Name": "Talat",
-  "Last Name": "Mahmud",
-  Username: "FalconiZzare",
-  Email: "talat@octopi.ai"
+  fname: "Talat",
+  lname: "Mahmud",
+  username: "FalconiZzare",
+  email: "talat@octopi.ai",
+  role: "Admin"
 };

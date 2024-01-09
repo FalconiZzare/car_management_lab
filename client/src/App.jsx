@@ -10,14 +10,20 @@ import { getLocalStorageItem } from "@/utils/utils.js";
 
 export const UserContext = createContext(null);
 
+export const fetchUserQuery = (id) => {
+  const { isSuccess, isError, isLoading, data } = useQuery({
+    queryKey: ["getUser", id],
+    queryFn: () => getUser(id)
+  });
+
+  return { isSuccess, isError, isLoading, data };
+};
+
 function App() {
   const [user, setUser] = useState(null);
   const id = getLocalStorageItem("x-user-id");
 
-  const { isSuccess, isError, data } = useQuery({
-    queryKey: ["getUser", id],
-    queryFn: () => getUser(id)
-  });
+  const { isSuccess, isError, data } = fetchUserQuery(id);
 
   useEffect(() => {
     if (isSuccess) setUser(data?.data.data);

@@ -19,3 +19,9 @@ export const getUser = async (id) => {
     headers: noAuthHeader()
   });
 };
+
+export const updateUser = async (id, data) => {
+  return await axios.put(`${base_url}/auth/user/${id}`, data, {
+    headers: noAuthHeader()
+  });
+};

@@ -89,7 +89,7 @@ exports.getUser = async (req, res) => {
     const user = await executeQuery(`
         SELECT users.id, fname, lname, username, email, roleId, roles.role
         FROM users
-        JOIN roles on users.roleId = roles.id
+                 JOIN roles on users.roleId = roles.id
         WHERE users.id = '${req.query.id}'
     `);
 
@@ -210,15 +210,26 @@ exports.updateUser = async (req, res) => {
       }
     }
 
-    await executeQuery(`
-        UPDATE users
-        SET fname    = '${fname}',
-            lname    = '${lname}',
-            username = '${username}',
-            email    = '${email}',
-            password = '${password}'
-        WHERE id = '${id}'
-    `);
+    if (password) {
+      await executeQuery(`
+          UPDATE users
+          SET fname    = '${fname}',
+              lname    = '${lname}',
+              username = '${username}',
+              email    = '${email}',
+              password = '${password}'
+          WHERE id = '${id}'
+      `);
+    } else {
+      await executeQuery(`
+          UPDATE users
+          SET fname    = '${fname}',
+              lname    = '${lname}',
+              username = '${username}',
+              email    = '${email}'
+          WHERE id = '${id}'
+      `);
+    }
 
     return res.status(200).json({
       message: "User updated!",

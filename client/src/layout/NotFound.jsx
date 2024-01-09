@@ -14,7 +14,7 @@ const NotFound = ({ message }) => {
         }
       >
         <h1 className={"text-4xl font-medium"}>
-          {message ? `Sorry? ${message}` : "Oops! Page Not Found!"}
+          {message ? `Sorry! ${message}` : "Oops! Page Not Found!"}
         </h1>
         <img src={Error404} alt={"404.png"} className={"pointer-events-none w-[650px]"} />
         <div className={"flex items-center justify-center gap-4"}>

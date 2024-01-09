@@ -59,8 +59,11 @@ router.put(
     body("fname", "First Name can not be empty!").trim().not().isEmpty(),
     body("lname", "Last Name can not be empty!").trim().not().isEmpty(),
     body("username", "Username can not be empty!").trim().not().isEmpty(),
-    body("password", "Password must contain 6 or more characters.").trim().isLength({
-      min: 6
+    body("password").custom((value) => {
+      if (value && value.length < 6) {
+        throw new Error("Password must contain 6 or more characters.");
+      }
+      return true;
     })
   ],
   authControllers.updateUser

@@ -21,10 +21,10 @@ const FeaturedListings = () => {
           >
             <div
               className={
-                " h-full w-full bg-[url('./src/assets/evo-spyder.jpg')] bg-cover bg-center bg-no-repeat duration-300 ease-in group-hover:scale-110"
+                " h-full w-full select-none bg-[url('./src/assets/evo-spyder.jpg')] bg-cover bg-center bg-no-repeat duration-300 ease-in group-hover:scale-110"
               }
             >
-              <img src={Evo} alt={"Evo"} className={"h-full object-cover"} />
+              <img src={Evo} alt={"Evo"} className={"pointer-events-none h-full object-cover"} />
             </div>
             <CarCardBottom index={index} />
           </div>
