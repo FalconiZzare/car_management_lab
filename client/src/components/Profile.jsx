@@ -72,8 +72,8 @@ const Profile = () => {
       toast(data?.data.message, {
         icon: <CheckCircle className={"size-5 text-green-500"} />
       });
-      setIsEdit(false);
       queryClient.invalidateQueries({ queryKey: ["getUser"] });
+      setIsEdit(false);
     },
     onError: (error) => {
       toast(error?.response?.data?.message, {

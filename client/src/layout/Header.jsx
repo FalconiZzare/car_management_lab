@@ -73,14 +73,14 @@ const Header = ({ path }) => {
                 <MenubarTrigger asChild>
                   <Button
                     variant={"outline"}
-                    className={"cursor-pointer border-accent bg-transparent"}
+                    className={"min-w-[180px] cursor-pointer border-accent bg-transparent"}
                   >
                     <div className={"flex flex-row items-center justify-center gap-4"}>
                       <Avatar className={"size-7"}>
                         <AvatarImage src="https://github.com/shadcn.png" alt={initials} />
                         <AvatarFallback>{initials}</AvatarFallback>
                       </Avatar>
-                      <p>FalconiZzare</p>
+                      <p>{user.username}</p>
                     </div>
                   </Button>
                 </MenubarTrigger>

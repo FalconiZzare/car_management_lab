@@ -115,9 +115,9 @@ exports.getUser = async (req, res) => {
 exports.getUsers = async (req, res) => {
   try {
     const users = await executeQuery(`
-        SELECT users.id, username, email, roleId, roles.role
+        SELECT users.id, fname, lname, username, email, roleId, roles.role
         FROM users
-                 JOIN roles on users.roleId = roles.id
+        JOIN roles on users.roleId = roles.id
     `);
 
     return res.status(200).json({
@@ -135,6 +135,13 @@ exports.deleteUser = async (req, res) => {
   const { id } = req.params;
 
   try {
+    if (parseInt(id) === 1) {
+      return res.status(400).json({
+        message: "You can not delete this user!",
+        success: false
+      });
+    }
+
     const user = await executeQuery(`
         SELECT *
         FROM users
@@ -250,6 +257,13 @@ exports.updateUserRole = async (req, res) => {
   const { id } = req.params;
 
   try {
+    if (parseInt(id) === 1) {
+      return res.status(400).json({
+        message: "You can not update role of this user!",
+        success: false
+      });
+    }
+
     await executeQuery(`
         UPDATE users
         SET roleId = '${req.body.roleId}'

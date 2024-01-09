@@ -25,3 +25,21 @@ export const updateUser = async (id, data) => {
     headers: noAuthHeader()
   });
 };
+
+export const getUsers = async () => {
+  return await axios.get(`${base_url}/auth/users`, {
+    headers: authHeader()
+  });
+};
+
+export const updateUserRole = async (id, data) => {
+  return await axios.put(`${base_url}/auth/user/update-role/${id}`, data, {
+    headers: authHeader()
+  });
+};
+
+export const deleteUser = async (id) => {
+  return await axios.delete(`${base_url}/auth/user/${id}`, {
+    headers: authHeader()
+  });
+};

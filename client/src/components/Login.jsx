@@ -12,11 +12,16 @@ import { AlertTriangle, Eye, EyeOff, Mail } from "lucide-react";
 import "ldrs/helix";
 
 const Login = () => {
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
+
+  if (user) {
+    navigate("/");
+    return;
+  }
 
   const { mutate: handleLogin, isPending } = useMutation({
     mutationKey: ["login"],

@@ -12,7 +12,7 @@ module.exports = async (req, res, next) => {
 
     if (user?.length <= 0 || user[0]?.roleId !== 1) {
       return res.status(401).json({
-        message: "Authorization failed!",
+        message: "Not Authorized!",
         success: false
       });
     } else if (user[0]?.roleId === 1) {

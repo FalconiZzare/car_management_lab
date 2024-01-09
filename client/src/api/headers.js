@@ -7,7 +7,7 @@ export const noAuthHeader = () => {
 };
 
 export const authHeader = () => {
-  const authUser = getLocalStorageItem("authUser");
+  const authUser = getLocalStorageItem("x-user-id");
 
   if (authUser) {
     return {
@@ -18,7 +18,7 @@ export const authHeader = () => {
 };
 
 export const multiPartAuthHeader = () => {
-  const authUser = getLocalStorageItem("authUser");
+  const authUser = getLocalStorageItem("x-user-id");
 
   if (authUser) {
     return {
