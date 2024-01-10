@@ -25,37 +25,50 @@ const DropDown = ({ data, placeholder, value, setValue, widthClassName, disabled
             aria-expanded={open}
             className={cn("select-none justify-between", widthClassName)}
           >
-            {value ? data.find((data) => data.value === value)?.label : `Select a ${placeholder}`}
+            {value
+              ? data.find((data) => data.toLowerCase() === value.toLowerCase())
+              : `Select a ${placeholder}`}
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </div>
       </PopoverTrigger>
       <PopoverContent className={cn("border-background p-0", widthClassName)}>
-        <Command>
-          <CommandInput
-            placeholder={`Search a ${placeholder}`}
-            parentClassName={"border-background"}
-          />
-          <CommandEmpty>{"No results found."}</CommandEmpty>
-          <CommandGroup>
-            {data.map((item) => (
-              <CommandItem
-                key={item.value}
-                value={item.value}
-                onSelect={(currentValue) => {
-                  setValue(currentValue === value ? "" : currentValue);
-                  setOpen(false);
-                }}
-                className={"aria-selected:bg-background"}
-              >
-                <Check
-                  className={cn("mr-2 h-4 w-4", value === item.value ? "opacity-100" : "opacity-0")}
-                />
-                {item.label}
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        </Command>
+        {data?.length === 0 ? (
+          <div className={"py-4 text-center text-sm"}>{"The list is empty!"}</div>
+        ) : (
+          <Command>
+            <CommandInput
+              placeholder={`Search a ${placeholder}`}
+              parentClassName={"border-background"}
+            />
+            <CommandEmpty>{"No results found."}</CommandEmpty>
+            <CommandGroup>
+              {data?.map((item, index) => (
+                <CommandItem
+                  key={index}
+                  value={item}
+                  onSelect={(currentValue) => {
+                    setValue(currentValue === value ? "" : currentValue);
+                    setOpen(false);
+                  }}
+                  className={cn("aria-selected:bg-background", {
+                    "bg-primary": value.toLowerCase() === String(item).toLowerCase()
+                  })}
+                >
+                  <Check
+                    className={cn(
+                      "mr-2 h-4 w-4 ",
+                      value.toLowerCase() === String(item).toLowerCase()
+                        ? "opacity-100"
+                        : "opacity-0"
+                    )}
+                  />
+                  {item}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </Command>
+        )}
       </PopoverContent>
     </Popover>
   );

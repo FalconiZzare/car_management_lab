@@ -1,25 +1,4 @@
-export const makes = [
-  {
-    value: "lamborghini",
-    label: "Lamborghini"
-  },
-  {
-    value: "ferrari",
-    label: "Ferrari"
-  },
-  {
-    value: "aston-martin",
-    label: "Aston Martin"
-  },
-  {
-    value: "porsche",
-    label: "Porsche"
-  },
-  {
-    value: "bmw",
-    label: "BMW"
-  }
-];
+export const makes = ["Lamborghini", "Ferrari", "Aston Martin", "Porsche", "BMW"];
 
 export const models = [
   {

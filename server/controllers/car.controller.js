@@ -96,12 +96,26 @@ exports.addCar = async (req, res) => {
   const { makeId, model, rent, state } = req.body;
 
   try {
+    const carFound = await executeQuery(`
+        SELECT *
+        FROM cars
+        WHERE makeId = '${makeId}'
+          AND model = '${model}'
+    `);
+
+    if (carFound?.length > 0) {
+      return res.status(400).json({
+        message: "This car already exists!",
+        success: false
+      });
+    }
+
     await executeQuery(`
         INSERT INTO cars (makeId, model, rent, photo, state)
         VALUES ('${makeId}', '${model}', '${rent}', '${imagesArray[0].filename}', '${state}')
     `);
     return res.status(200).json({
-      message: "Car added successfully!",
+      message: "Car enlisted successfully!",
       success: true
     });
   } catch (error) {
