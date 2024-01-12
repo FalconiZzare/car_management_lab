@@ -5,11 +5,12 @@ import { Button } from "@/components/ui/button.jsx";
 import DropDown from "@/components/DropDown.jsx";
 import { Textarea } from "@/components/ui/textarea.jsx";
 import { AlertTriangle, CheckCircle, Image, XCircle } from "lucide-react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { addCar, addMake, getMakes, getModels } from "@/api/car.js";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { addCar, addMake } from "@/api/car.js";
 import { toast } from "sonner";
 import Loader from "@/components/Loader.jsx";
 import { addPart } from "@/api/part.js";
+import { useMakeQuery, useModelQuery } from "@/hooks/use-api.js";
 
 const DashBoard = () => {
   const [make, setMake] = useState("");
@@ -29,28 +30,9 @@ const DashBoard = () => {
 
   const queryClient = useQueryClient();
 
-  const { data: makeData, isLoading: makeDataLoading } = useQuery({
-    queryKey: ["getMakes"],
-    queryFn: () => getMakes()
-  });
+  const { makeData, makeDataLoading } = useMakeQuery();
 
-  const {
-    data: modelData,
-    isLoading: modelDataLoading,
-    refetch
-  } = useQuery({
-    queryKey: ["getModels"],
-    queryFn: () => {
-      if (partMakeId) {
-        const formData = new FormData();
-        formData.append("makeId", partMakeId);
-
-        return getModels(formData);
-      }
-      return null;
-    },
-    enabled: false
-  });
+  const { modelData, modelDataLoading, refetchModels } = useModelQuery(partMakeId);
 
   const { mutate: handleAddMake, isPending: makeLoading } = useMutation({
     mutationKey: ["addMake"],
@@ -188,7 +170,7 @@ const DashBoard = () => {
   }, [partMake]);
 
   useEffect(() => {
-    if (partMakeId) refetch();
+    if (partMakeId) refetchModels();
   }, [partMakeId]);
 
   const handleClearFile = () => {

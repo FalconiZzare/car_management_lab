@@ -3,27 +3,17 @@ import { ThemeProvider } from "@/hooks/ThemeProvider.jsx";
 import { BrowserRouter } from "react-router-dom";
 import RouteTable from "@/routes/RouteTable.jsx";
 import { Toaster } from "@/components/ui/sonner.jsx";
-import { useQuery } from "@tanstack/react-query";
-import { getUser } from "@/api/auth.js";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { getLocalStorageItem } from "@/utils/utils.js";
+import { useUserQuery } from "@/hooks/use-api.js";
 
 export const UserContext = createContext(null);
-
-export const fetchUserQuery = (id) => {
-  const { isSuccess, isError, isLoading, data } = useQuery({
-    queryKey: ["getUser", id],
-    queryFn: () => getUser(id)
-  });
-
-  return { isSuccess, isError, isLoading, data };
-};
 
 function App() {
   const [user, setUser] = useState(null);
   const id = getLocalStorageItem("x-user-id");
 
-  const { isSuccess, isError, data } = fetchUserQuery(id);
+  const { isSuccess, isError, data } = useUserQuery(id);
 
   useEffect(() => {
     if (isSuccess) setUser(data?.data.data);

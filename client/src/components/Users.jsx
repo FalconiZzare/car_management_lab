@@ -22,14 +22,14 @@ import { deleteUser, getUsers, updateUserRole } from "@/api/auth.js";
 import NotFound from "@/layout/NotFound.jsx";
 import { useNavigate } from "react-router-dom";
 import { getLocalStorageItem } from "@/utils/utils.js";
-import { fetchUserQuery } from "@/App.jsx";
 import Loader from "@/components/Loader.jsx";
 import { toast } from "sonner";
+import { useUserQuery } from "@/hooks/use-api.js";
 
 const Users = () => {
   const navigate = useNavigate();
   const id = getLocalStorageItem("x-user-id");
-  const { isError: isUserError, isLoading: isUserLoading, data: userData } = fetchUserQuery(id);
+  const { isError: isUserError, isLoading: isUserLoading, data: userData } = useUserQuery(id);
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["getUsers"],
     queryFn: () => getUsers(),

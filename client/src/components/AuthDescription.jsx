@@ -15,8 +15,7 @@ const AuthDescription = () => {
       <img src={Logo} alt={"logo"} width={"300px"} className={"m-4 mt-10 self-center"} />
       <div className={"flex flex-col items-start gap-2"}>
         <h2 className={"text-lg"}>
-          "This rental service saved me a hefty four hours of delay and helped me get a fine tuned
-          car with excellent condition under no time at all!"
+          {"This rental service saved me a hefty four hours of delay and helped me get a fine tuned car with excellent condition under no time at all!"}
         </h2>
         <h2 className={"text-sm"}>- Random NSU Model</h2>
       </div>

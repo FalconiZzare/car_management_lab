@@ -25,3 +25,9 @@ export const addCar = async (data) => {
     headers: authHeader()
   });
 };
+
+export const getCars = async (data) => {
+  return await axios.post(`${base_url}/car/cars`, data, {
+    headers: noAuthHeader()
+  });
+};

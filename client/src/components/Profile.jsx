@@ -6,17 +6,17 @@ import { Input } from "@/components/ui/input.jsx";
 import { Button } from "@/components/ui/button.jsx";
 import Loader from "@/components/Loader.jsx";
 import NotFound from "@/layout/NotFound.jsx";
-import { fetchUserQuery } from "@/App.jsx";
 import { UserKeyMappings } from "@/constants/UserKeys.js";
 import { getAvatarFallback, getLocalStorageItem } from "@/utils/utils.js";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateUser } from "@/api/auth.js";
 import { toast } from "sonner";
+import { useUserQuery } from "@/hooks/use-api.js";
 
 const Profile = () => {
   const [isEdit, setIsEdit] = useState(false);
   const id = getLocalStorageItem("x-user-id");
-  const { isError, isLoading, data } = fetchUserQuery(id);
+  const { isError, isLoading, data } = useUserQuery(id);
   const keysToDisplay = ["fname", "lname", "username", "email", "role"];
   const user = data?.data.data;
   const queryClient = useQueryClient();

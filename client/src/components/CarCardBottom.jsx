@@ -1,10 +1,10 @@
-import React from "react";
 import { Separator } from "@/components/ui/separator.jsx";
 import RentPopover from "@/components/RentPopover.jsx";
 import { Button } from "@/components/ui/button.jsx";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
-const CarCardBottom = ({ index }) => {
+const CarCardBottom = ({ id, make, model, rent, isRented }) => {
   const navigate = useNavigate();
 
   return (
@@ -14,19 +14,19 @@ const CarCardBottom = ({ index }) => {
       }
     >
       <p className={"text-lg font-semibold leading-none tracking-wide"}>
-        <span className={"font-bold text-primary"}>Lamborghini</span> HURACÁN EVO SPYDER
+        <span className={"font-bold text-primary"}>{make}</span> {model}
       </p>
       <Separator className={"bg-accent dark:bg-background"} />
       <div className={"flex w-full flex-row items-center justify-between"}>
-        <p className={"text-2xl font-medium"}>$6300</p>
+        <p className={"text-2xl font-medium"}>{`$${rent}`}</p>
         <div className={"flex flex-row gap-4"}>
-          <div className={index === 3 ? "cursor-no-drop" : undefined}>
+          <div className={isRented ? "cursor-no-drop" : undefined}>
             <div
               onClick={(e) => {
                 e.stopPropagation();
               }}
             >
-              <RentPopover disabled={index === 3} />
+              <RentPopover disabled={isRented} />
             </div>
           </div>
           <Button
@@ -34,7 +34,7 @@ const CarCardBottom = ({ index }) => {
             className={"border-ring bg-transparent hover:bg-background"}
             onClick={(e) => {
               e.stopPropagation();
-              navigate("/cars/servicing/1");
+              navigate(`/cars/servicing/${id}`);
             }}
           >
             Servicing
@@ -43,6 +43,14 @@ const CarCardBottom = ({ index }) => {
       </div>
     </div>
   );
+};
+
+CarCardBottom.propTypes = {
+  id: PropTypes.number.isRequired,
+  make: PropTypes.string.isRequired,
+  model: PropTypes.string.isRequired,
+  rent: PropTypes.number.isRequired,
+  isRented: PropTypes.bool.isRequired
 };
 
 export default CarCardBottom;

@@ -20,7 +20,7 @@ const RouteTable = () => {
   const ScrollToTop = () => {
     useEffect(() => {
       window.scrollTo(0, 0);
-    }, [location]);
+    }, []);
 
     return null;
   };

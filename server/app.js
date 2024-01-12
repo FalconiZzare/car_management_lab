@@ -8,6 +8,7 @@ const authRoutes = require("./routes/auth");
 const carRoutes = require("./routes/car");
 const rentRoutes = require("./routes/rent");
 const partRoutes = require("./routes/part");
+const path = require("path");
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/car", carRoutes);
 app.use("/api/rent", rentRoutes);
 app.use("/api/part", partRoutes);
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 const PORT = 5000;
 
