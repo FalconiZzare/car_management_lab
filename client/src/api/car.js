@@ -31,3 +31,9 @@ export const getCars = async (data) => {
     headers: noAuthHeader()
   });
 };
+
+export const getCar = async (id) => {
+  return await axios.get(`${base_url}/car/details/${id}`, {
+    headers: noAuthHeader()
+  });
+};
