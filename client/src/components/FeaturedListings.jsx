@@ -13,6 +13,10 @@ const FeaturedListings = () => {
     carsMutate();
   }, []);
 
+  const sortByIdDesc = (array) => {
+    return array?.sort((a, b) => b.id - a.id).slice(0, 5);
+  };
+
   return (
     <div>
       <div className={"mb-[3rem] flex flex-col gap-3"}>
@@ -25,7 +29,7 @@ const FeaturedListings = () => {
             <Loader />
           </div>
         ) : (
-          carsData?.data?.data.map((item, index) => (
+          sortByIdDesc(carsData?.data?.data)?.map((item, index) => (
             <div
               key={index}
               className={`relative mb-6 flex flex-col items-center justify-start overflow-hidden rounded-2xl border border-ring bg-card dark:border-accent ${
@@ -39,7 +43,7 @@ const FeaturedListings = () => {
                 <img
                   src={`${base_image_url}/${item.photo}`}
                   alt={item.model}
-                  className={"pointer-events-none h-full object-cover"}
+                  className={"pointer-events-none -mt-10 h-full w-full object-cover"}
                 />
               </div>
               <CarCardBottom

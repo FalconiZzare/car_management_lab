@@ -79,7 +79,8 @@ DropDown.propTypes = {
   placeholder: PropTypes.string.isRequired,
   value: PropTypes.any.isRequired,
   setValue: PropTypes.func.isRequired,
-  widthClassName: PropTypes.string.isRequired
+  widthClassName: PropTypes.string.isRequired,
+  disabled: PropTypes.bool
 };
 
 export default DropDown;

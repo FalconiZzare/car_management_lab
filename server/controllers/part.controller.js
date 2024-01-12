@@ -47,7 +47,7 @@ exports.getParts = async (req, res) => {
     const parts = await executeQuery(`
         SELECT parts.name, parts.price
         FROM parts
-        LEFT OUTER JOIN cars ON parts.makeId = cars.makeId AND parts.model = cars.model
+        RIGHT OUTER JOIN cars ON parts.makeId = cars.makeId AND parts.model = cars.model
         WHERE cars.id = '${id}';
     `);
 

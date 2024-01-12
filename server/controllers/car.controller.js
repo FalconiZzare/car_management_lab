@@ -129,10 +129,10 @@ exports.getCar = async (req, res) => {
 
   try {
     const car = await executeQuery(`
-        SELECT *
+        SELECT cars.id AS 'Car ID', makes.make, cars.model, cars.rent, cars.photo, cars.state
         FROM cars
         LEFT OUTER JOIN makes ON (cars.makeId = makes.id)
-        WHERE cars.id = '${id}'
+        WHERE cars.id = ${id}
     `);
 
     if (car?.length === 0) {
@@ -158,12 +158,12 @@ exports.getCars = async (req, res) => {
 
   try {
     const cars = await executeQuery(`
-        SELECT *
-        FROM cars
-        LEFT OUTER JOIN makes ON cars.makeId = makes.id
-        WHERE (makes.make LIKE '%${search}%' OR cars.model LIKE '%${search}%')
-          AND (makes.make = '${make}' OR '${make}' = '')
-          AND (cars.model = '${model}' OR '${model}' = '');
+        SELECT c.id, c.makeId, c.model, c.rent, c.photo, c.state, c.isRented, m.make
+        FROM cars c
+        LEFT OUTER JOIN makes m ON c.makeId = m.id
+        WHERE (m.make LIKE '%${search}%' OR c.model LIKE '%${search}%')
+          AND (m.make = '${make}' OR '${make}' = '')
+          AND (c.model = '${model}' OR '${model}' = '');
     `);
 
     return res.status(200).json({

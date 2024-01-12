@@ -147,27 +147,33 @@ const DashBoard = () => {
     handleAddCar(formData);
   };
 
-  useEffect(() => {
-    if (carMake) {
-      const make = makeData?.data?.data?.filter(
-        (data) => data.make.toLowerCase() === carMake.toLowerCase()
-      );
+  const processSetCarMake = (make) => {
+    if (!make) {
+      setCarMakeId(undefined);
+      setCarMake("");
+      return;
+    }
+    const filteredMake = makeData?.data?.data.filter(
+      (data) => data.make.toLowerCase() === make.toLowerCase()
+    );
 
-      if (make[0]) setCarMakeId(make[0].id);
-    } else setCarMakeId(undefined);
-  }, [carMake]);
+    setCarMakeId(filteredMake[0].id);
+    setCarMake(make);
+  };
 
-  useEffect(() => {
-    if (partMake) {
-      const make = makeData?.data?.data?.filter(
-        (data) => data.make.toLowerCase() === partMake.toLowerCase()
-      );
+  const processSetPartMake = (make) => {
+    if (!make) {
+      setPartMakeId(undefined);
+      setPartMake("");
+      return;
+    }
+    const filteredMake = makeData?.data?.data.filter(
+      (data) => data.make.toLowerCase() === make.toLowerCase()
+    );
 
-      if (make[0]) {
-        setPartMakeId(make[0].id);
-      }
-    } else setPartMakeId(undefined);
-  }, [partMake]);
+    setPartMakeId(filteredMake[0].id);
+    setPartMake(make);
+  };
 
   useEffect(() => {
     if (partMakeId) refetchModels();
@@ -225,7 +231,7 @@ const DashBoard = () => {
                         data={makeData ? makeData?.data?.data?.map((item) => item.make) : []}
                         placeholder={"make"}
                         value={carMake}
-                        setValue={setCarMake}
+                        setValue={processSetCarMake}
                         widthClassName={"w-56"}
                       />
                     )}
@@ -320,7 +326,7 @@ const DashBoard = () => {
                   data={makeData ? makeData?.data?.data?.map((item) => item.make) : []}
                   placeholder={"make"}
                   value={partMake}
-                  setValue={setPartMake}
+                  setValue={processSetPartMake}
                   widthClassName={"w-56"}
                 />
               )}
