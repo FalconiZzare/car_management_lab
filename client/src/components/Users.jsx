@@ -19,22 +19,13 @@ import {
 } from "@/components/ui/menubar.jsx";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { deleteUser, getUsers, updateUserRole } from "@/api/auth.js";
-import NotFound from "@/layout/NotFound.jsx";
-import { useNavigate } from "react-router-dom";
-import { getLocalStorageItem } from "@/utils/utils.js";
 import Loader from "@/components/Loader.jsx";
 import { toast } from "sonner";
-import { useUserQuery } from "@/hooks/use-api.js";
 
 const Users = () => {
-  const navigate = useNavigate();
-  const id = getLocalStorageItem("x-user-id");
-  const { isError: isUserError, isLoading: isUserLoading, data: userData } = useUserQuery(id);
-  const { data, isLoading, refetch } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["getUsers"],
-    queryFn: () => getUsers(),
-    retry: 1,
-    enabled: false
+    queryFn: () => getUsers()
   });
 
   const [users, setUsers] = useState(data?.data.data);
@@ -94,23 +85,8 @@ const Users = () => {
   });
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (!id || isUserError) navigate("/login");
-      else {
-        await refetch();
-      }
-    };
-
-    fetchData();
-  }, [id, isUserLoading]);
-
-  useEffect(() => {
     if (data) setUsers(data?.data.data);
   }, [data]);
-
-  if (!isUserLoading && userData?.data.data.roleId !== 1) {
-    return <NotFound message={"You are not authorized to view this page!"} />;
-  }
 
   return (
     <div className={"mt-24"}>
@@ -119,7 +95,7 @@ const Users = () => {
           "mx-[4rem] mb-4 flex flex-col items-start justify-start gap-8 rounded-2xl bg-card p-10"
         }
       >
-        {isUserLoading || isLoading ? (
+        {isLoading ? (
           <div className={"mt-3 flex h-[450px] items-center justify-center self-center"}>
             <Loader />
           </div>

@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import AuthDescription from "@/components/AuthDescription.jsx";
 import { Input } from "@/components/ui/input.jsx";
 import { Button } from "@/components/ui/button.jsx";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { login } from "@/api/auth.js";
 import { setLocalStorageItem } from "@/utils/utils.js";
 import { useMutation } from "@tanstack/react-query";
@@ -12,16 +12,12 @@ import { AlertTriangle, Eye, EyeOff, Mail } from "lucide-react";
 import "ldrs/helix";
 
 const Login = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
+  const location = useLocation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
-
-  if (user) {
-    navigate("/");
-    return;
-  }
 
   const { mutate: handleLogin, isPending } = useMutation({
     mutationKey: ["login"],
@@ -35,7 +31,8 @@ const Login = () => {
     onSuccess: (data) => {
       setLocalStorageItem("x-user-id", data?.data.id);
       setUser(data?.data.id);
-      navigate(-1);
+      if (location.state?.from) navigate(location.state.from);
+      else navigate("/");
     },
     onError: (error) => {
       toast(error?.response?.data?.message, {

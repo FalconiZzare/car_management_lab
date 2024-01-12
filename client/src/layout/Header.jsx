@@ -88,19 +88,21 @@ const Header = ({ path }) => {
                   align={"center"}
                   className={"flex flex-col items-center gap-3 border-card bg-background px-6 py-4"}
                 >
-                  {popover.map((item, index) => (
-                    <MenubarItem asChild key={index} className={"focus:bg-transparent"}>
-                      <Link to={item.href} className={"bg-transparent"}>
-                        <Button
-                          variant={"outline"}
-                          className={"w-[200px] justify-start gap-5 border-card pl-8"}
-                        >
-                          {popoverIconMapping[item.name]}
-                          {item.name}
-                        </Button>
-                      </Link>
-                    </MenubarItem>
-                  ))}
+                  {popover.map((item, index) =>
+                    (item.requireAdmin && user.roleId === 1) || !item.requireAdmin ? (
+                      <MenubarItem asChild key={index} className={"focus:bg-transparent"}>
+                        <Link to={item.href} className={"bg-transparent"}>
+                          <Button
+                            variant={"outline"}
+                            className={"w-[200px] justify-start gap-5 border-card pl-8"}
+                          >
+                            {popoverIconMapping[item.name]}
+                            {item.name}
+                          </Button>
+                        </Link>
+                      </MenubarItem>
+                    ) : null
+                  )}
                 </MenubarContent>
               </MenubarMenu>
             </Menubar>

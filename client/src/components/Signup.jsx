@@ -55,7 +55,7 @@ const Signup = () => {
             Home
           </Button>
           <div className={"mb-auto flex w-full flex-col items-center pb-12"}>
-            <h1 className={"text-2xl font-bold tracking-tight"}>Create An account</h1>
+            <h1 className={"text-2xl font-bold tracking-tight"}>Create an account</h1>
             <p className={"mt-2 text-sm text-muted-foreground"}>
               Enter your credentials below to create a client account
             </p>

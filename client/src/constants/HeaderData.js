@@ -12,18 +12,22 @@ export const header = [
 export const popover = [
   {
     name: "Profile",
-    href: "/profile"
+    href: "/profile",
+    requireAdmin: false
   },
   {
     name: "Management",
-    href: "/admin"
+    href: "/admin",
+    requireAdmin: true
   },
   {
     name: "Rented Cars",
-    href: "/rent/list/1"
+    href: "/rent/list/1",
+    requireAdmin: false
   },
   {
     name: "Client List",
-    href: "/users"
+    href: "/users",
+    requireAdmin: true
   }
 ];
