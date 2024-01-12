@@ -7,10 +7,10 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { getLocalStorageItem } from "@/utils/utils.js";
 import { useUserQuery } from "@/hooks/use-api.js";
 
-export const UserContext = createContext(null);
+export const UserContext = createContext({});
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState("");
   const id = getLocalStorageItem("x-user-id");
 
   const { isSuccess, isError, data } = useUserQuery(id);
@@ -18,7 +18,7 @@ function App() {
   useEffect(() => {
     if (isSuccess) setUser(data?.data.data);
 
-    if (isError) setUser(null);
+    if (isError) setUser("");
   }, [id, data, isError, isSuccess]);
 
   return (

@@ -111,7 +111,7 @@ const Header = ({ path }) => {
               className={"border-accent bg-transparent"}
               onClick={() => {
                 removeLocalStorageItem("x-user-id");
-                setUser(null);
+                setUser("");
               }}
             >
               <LogOut className={"ml-1 size-5"} />
