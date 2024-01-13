@@ -59,7 +59,7 @@ const CarDetails = ({ carId }) => {
                 (key, index) =>
                   key !== "photo" && (
                     <div key={index} className={"flex flex-row items-start justify-start gap-12"}>
-                      <p className={"min-w-[60px] capitalize"}>
+                      <p className={"min-w-[100px] capitalize"}>
                         {(key === "state" ? "condition" : key) + ":"}
                       </p>
                       <p className={"capitalize"}>

@@ -278,7 +278,7 @@ const DashBoard = () => {
                     <img
                       src={URL.createObjectURL(image)}
                       alt={image.name}
-                      className={"pointer-events-none h-full object-cover"}
+                      className={"pointer-events-none w-full object-cover"}
                     />
                     <XCircle
                       className={"absolute right-2 top-2 cursor-pointer text-primary"}

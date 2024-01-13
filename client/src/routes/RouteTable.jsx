@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Login from "@/components/Login.jsx";
 import Signup from "@/components/Signup.jsx";
@@ -19,17 +18,8 @@ import PrivateRoute from "@/routes/PrivateRoute.jsx";
 const RouteTable = () => {
   const location = useLocation();
 
-  const ScrollToTop = () => {
-    useEffect(() => {
-      window.scrollTo(0, 0);
-    }, []);
-
-    return null;
-  };
-
   return (
     <>
-      <ScrollToTop />
       <Header path={location.pathname} />
       <Routes>
         <Route path={"/"} element={<Home />} />

@@ -111,8 +111,8 @@ exports.addCar = async (req, res) => {
     }
 
     await executeQuery(`
-        INSERT INTO cars (makeId, model, rent, photo, state)
-        VALUES ('${makeId}', '${model}', '${rent}', '${imagesArray[0].filename}', '${state}')
+        INSERT INTO cars (makeId, model, rent, photo${state !== '' ? ', ' + 'state' : ''})
+        VALUES ('${makeId}', '${model}', '${rent}', '${imagesArray[0].filename}'${state !== '' ? ', ' + state : ''})
     `);
     return res.status(200).json({
       message: "Car enlisted successfully!",

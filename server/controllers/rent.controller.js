@@ -19,9 +19,22 @@ exports.addRent = async (req, res) => {
           AND cars.isRented = true
     `);
 
+    const car = await executeQuery(`
+        SELECT *
+        FROM cars
+        WHERE cars.id = '${carId}'
+    `);
+
     if (isRented?.length > 0) {
       return res.status(400).json({
-        message: "This car is not available!",
+        message: "This car is not available for rent!",
+        success: false
+      });
+    }
+
+    if (car?.length === 0) {
+      return res.status(400).json({
+        message: "This car does not exist!",
         success: false
       });
     }

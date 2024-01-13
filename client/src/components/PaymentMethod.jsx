@@ -18,8 +18,10 @@ import {
 } from "@/components/ui/select.jsx";
 import { Button } from "@/components/ui/button.jsx";
 import { Icons } from "@/Icons/Icons.jsx";
+import PropTypes from "prop-types";
+import Loader from "@/components/Loader.jsx";
 
-const PaymentMethod = () => {
+const PaymentMethod = ({ amount, fnToExecute, loading }) => {
   return (
     <Card className={"border-none bg-transparent"}>
       <CardHeader>
@@ -27,6 +29,7 @@ const PaymentMethod = () => {
         <CardDescription>Select a payment method to continue.</CardDescription>
       </CardHeader>
       <CardContent className="grid gap-6">
+        <h1 className={"text-center text-3xl font-bold text-green-500"}>{`$${amount}`}</h1>
         <RadioGroup defaultValue="card" className="grid grid-cols-3 gap-4">
           <div>
             <RadioGroupItem value="card" id="card" className="peer sr-only" />
@@ -76,8 +79,8 @@ const PaymentMethod = () => {
           <Input id="name" placeholder="First Last" />
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="number">Card number</Label>
-          <Input id="number" placeholder="" />
+          <Label htmlFor="number">Card Number</Label>
+          <Input id="number" placeholder="4105 XXXX XXXX 2309" />
         </div>
         <div className="grid grid-cols-3 gap-4">
           <div className="grid gap-2">
@@ -124,10 +127,18 @@ const PaymentMethod = () => {
         </div>
       </CardContent>
       <CardFooter>
-        <Button className="w-full">Continue</Button>
+        <Button className="w-full" disabled={loading} onClick={() => fnToExecute()}>
+          {loading ? <Loader size={"30"} color={"hsl(var(--foreground))"} /> : "Continue"}
+        </Button>
       </CardFooter>
     </Card>
   );
+};
+
+PaymentMethod.propTypes = {
+  amount: PropTypes.number.isRequired,
+  fnToExecute: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired
 };
 
 export default PaymentMethod;

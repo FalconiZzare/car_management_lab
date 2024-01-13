@@ -120,6 +120,10 @@ const Cars = () => {
             <div className={"col-span-4 flex h-96 items-center justify-center"}>
               <Loader />
             </div>
+          ) : carsData?.data?.data?.length === 0 ? (
+            <div className={"col-span-4 flex h-72 items-center justify-center text-2xl"}>
+              No Results!
+            </div>
           ) : (
             carsData?.data?.data?.map((item, index) => (
               <div

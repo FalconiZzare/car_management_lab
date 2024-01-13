@@ -1,11 +1,58 @@
+import { useContext, useState } from "react";
 import { Separator } from "@/components/ui/separator.jsx";
-import RentPopover from "@/components/RentPopover.jsx";
 import { Button } from "@/components/ui/button.jsx";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog.jsx";
+import PaymentMethod from "@/components/PaymentMethod.jsx";
+import { UserContext } from "@/App.jsx";
+import { getLocalStorageItem } from "@/utils/utils.js";
+import { toast } from "sonner";
+import { AlertTriangle, CheckCircle } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { addRent } from "@/api/rent.js";
 
 const CarCardBottom = ({ id, make, model, rent, isRented }) => {
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const localId = getLocalStorageItem("x-user-id");
+  const { user } = useContext(UserContext);
+  const { mutate, isPending } = useMutation({
+    mutationKey: ["addRent"],
+    mutationFn: () => {
+      const formData = new FormData();
+      formData.append("userId", localId);
+      formData.append("carId", id);
+
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          const result = addRent(formData);
+          resolve(result);
+        }, 2000);
+      });
+    },
+    onSuccess: (data) => {
+      toast(data?.data.message, {
+        icon: <CheckCircle className={"size-5 text-green-500"} />
+      });
+      setOpen(false);
+    },
+    onError: (error) => {
+      toast(error?.response?.data?.message, {
+        icon: <AlertTriangle className={"size-5 text-red-500"} />
+      });
+    }
+  });
+
+  const authNotif = () => {
+    toast("Please login first.", {
+      icon: <AlertTriangle className={"size-5 text-red-500"} />,
+      action: {
+        label: "Log In",
+        onClick: () => navigate("/login")
+      }
+    });
+  };
 
   return (
     <div
@@ -26,7 +73,20 @@ const CarCardBottom = ({ id, make, model, rent, isRented }) => {
                 e.stopPropagation();
               }}
             >
-              <RentPopover disabled={isRented} />
+              {localId && user ? (
+                <Dialog open={open} onOpenChange={setOpen}>
+                  <DialogTrigger asChild>
+                    <Button disabled={isRented}>Rent</Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <PaymentMethod amount={rent} fnToExecute={mutate} loading={isPending} />
+                  </DialogContent>
+                </Dialog>
+              ) : (
+                <Button disabled={isRented} onClick={authNotif}>
+                  Rent
+                </Button>
+              )}
             </div>
           </div>
           <Button

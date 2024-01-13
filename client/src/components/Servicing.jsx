@@ -9,7 +9,7 @@ import {
   TableRow
 } from "@/components/ui/table.jsx";
 import { parts } from "@/constants/DemoData.js";
-import { ShoppingCart } from "lucide-react";
+import { Fingerprint, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button.jsx";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog.jsx";
 import PaymentMethod from "@/components/PaymentMethod.jsx";
@@ -70,13 +70,13 @@ const Servicing = () => {
               </TableBody>
               <TableFooter className={"border-card bg-transparent"}>
                 <TableRow className={"border-card hover:bg-transparent"}>
-                  <TableCell className={"text-center"}>Total</TableCell>
-                  <TableCell className={"text-center"}>$ 1395</TableCell>
+                  <TableCell>Total</TableCell>
+                  <TableCell>$ 1395</TableCell>
                   <TableCell className={"text-center"}>
                     <Dialog>
                       <DialogTrigger asChild>
-                        <Button variant={"ghost"} className={"gap-4 text-lg"}>
-                          <ShoppingCart />
+                        <Button variant={"ghost"} className={"gap-4"}>
+                          <Fingerprint className={"text-lg"} />
                           Checkout
                         </Button>
                       </DialogTrigger>

@@ -17,7 +17,7 @@ const Toaster = ({
           title: "text-[16px] group-[.toast]:font-[300] group-[.toast]:tracking-wider",
           description: "group-[.toast]:text-muted-foreground text-sm",
           actionButton:
-            "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
+            "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground group-[.toast]:p-4 group-[.toast]:text-sm",
           cancelButton:
             "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground"
         }
