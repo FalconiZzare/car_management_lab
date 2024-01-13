@@ -87,10 +87,9 @@ exports.postLogin = async (req, res) => {
 exports.getUser = async (req, res) => {
   try {
     const user = await executeQuery(`
-        SELECT users.id, fname, lname, username, email, roleId, roles.role
-        FROM users
-                 JOIN roles on users.roleId = roles.id
-        WHERE users.id = '${req.query.id}'
+        SELECT *
+        FROM user_view
+        WHERE id = '${req.query.id}'
     `);
 
     if (user?.length <= 0) {

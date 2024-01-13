@@ -24,6 +24,11 @@ CREATE TABLE users
     FOREIGN KEY (roleId) REFERENCES roles(id)
 );
 
+CREATE VIEW user_view AS
+SELECT users.id, fname, lname, username, email, roleId, roles.role
+FROM users
+INNER JOIN roles ON users.roleId = roles.id;
+
 INSERT INTO users (fname, lname, username, password, email, roleId) VALUES
 ('Talat', 'Mahmud', 'FalconiZzare', '123456', 'talat@octopi.ai', 1);
 
