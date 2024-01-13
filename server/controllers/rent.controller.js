@@ -72,7 +72,7 @@ exports.deleteRent = async (req, res) => {
 
     if (rentFound?.length === 0) {
       return res.status(400).json({
-        message: "No rent available!",
+        message: "Rent doesn't exist!",
         success: false
       });
     }

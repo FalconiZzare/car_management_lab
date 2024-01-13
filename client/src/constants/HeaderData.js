@@ -22,7 +22,7 @@ export const popover = [
   },
   {
     name: "Rented Cars",
-    href: "/rent/list/1",
+    href: "/rent/list",
     requireAdmin: false
   },
   {

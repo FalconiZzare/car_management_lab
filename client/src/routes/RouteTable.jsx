@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Login from "@/components/Login.jsx";
 import Signup from "@/components/Signup.jsx";
@@ -18,9 +19,18 @@ import PrivateRoute from "@/routes/PrivateRoute.jsx";
 const RouteTable = () => {
   const location = useLocation();
 
+  const ScrollToTop = () => {
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+
+    return null;
+  };
+
   return (
     <>
       <Header path={location.pathname} />
+      <ScrollToTop />
       <Routes>
         <Route path={"/"} element={<Home />} />
         <Route path={"/login"} element={<Login />} />
@@ -29,7 +39,7 @@ const RouteTable = () => {
         <Route path={"/cars/details/:id"} element={<CarDetails />} />
         <Route path={"/cars/servicing/:id"} element={<Servicing />} />
         <Route path={"/profile"} element={<PrivateRoute element={<Profile />} />} />
-        <Route path={"/rent/list/:id"} element={<PrivateRoute element={<RentList />} />} />
+        <Route path={"/rent/list"} element={<PrivateRoute element={<RentList />} />} />
         <Route path={"/users"} element={<AdminRoute element={<Users />} />} />
         <Route path={"/admin"} element={<AdminRoute element={<DashBoard />} />} />
         <Route path={"*"} element={<NotFound />} />

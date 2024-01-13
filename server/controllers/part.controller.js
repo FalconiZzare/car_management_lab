@@ -45,11 +45,13 @@ exports.getParts = async (req, res) => {
 
   try {
     const parts = await executeQuery(`
-        SELECT parts.name, parts.price
+        SELECT parts.id, parts.name, parts.price
         FROM parts
-        RIGHT OUTER JOIN cars ON parts.makeId = cars.makeId AND parts.model = cars.model
+        INNER JOIN cars ON parts.makeId = cars.makeId AND parts.model = cars.model
         WHERE cars.id = '${id}';
     `);
+
+    console.log(parts);
 
     res.status(200).json({
       message: "Get part list success!",

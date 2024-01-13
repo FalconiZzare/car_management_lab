@@ -137,8 +137,8 @@ const PaymentMethod = ({ amount, fnToExecute, loading }) => {
 
 PaymentMethod.propTypes = {
   amount: PropTypes.number.isRequired,
-  fnToExecute: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired
+  fnToExecute: PropTypes.func,
+  loading: PropTypes.bool
 };
 
 export default PaymentMethod;

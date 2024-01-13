@@ -7,3 +7,15 @@ export const addRent = async (data) => {
     headers: noAuthHeader()
   });
 };
+
+export const getRents = async (id) => {
+  return await axios.get(`${base_url}/rent/list/${id}`, {
+    headers: noAuthHeader()
+  });
+};
+
+export const deleteRent = async (id) => {
+  return await axios.delete(`${base_url}/rent/${id}`, {
+    headers: noAuthHeader()
+  });
+};

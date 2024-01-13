@@ -7,3 +7,9 @@ export const addPart = async (data) => {
     headers: authHeader()
   });
 };
+
+export const getParts = async (id) => {
+  return await axios.get(`${base_url}/part/${id}`, {
+    headers: noAuthHeader()
+  });
+};
