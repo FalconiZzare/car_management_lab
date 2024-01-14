@@ -36,7 +36,7 @@ Please do not panic if it takes time during first install. After installing is d
 npm run dev
 ```
 
-If you did everything right, this should run both front-end and backend at the same time, and you will be able to view the website on `http://localhost:5173`
+If you did everything right, this should run both front-end and back-end at the same time, and you will be able to view the website on `http://localhost:5173`
 
 Login using the below credentials and start exploring:
 
