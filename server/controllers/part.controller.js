@@ -51,8 +51,6 @@ exports.getParts = async (req, res) => {
         WHERE cars.id = '${id}';
     `);
 
-    console.log(parts);
-
     res.status(200).json({
       message: "Get part list success!",
       success: true,
