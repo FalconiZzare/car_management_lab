@@ -3,7 +3,6 @@ import { ThemeProvider } from "@/hooks/ThemeProvider.jsx";
 import { BrowserRouter } from "react-router-dom";
 import RouteTable from "@/routes/RouteTable.jsx";
 import { Toaster } from "@/components/ui/sonner.jsx";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { getLocalStorageItem } from "@/utils/utils.js";
 import { useUserQuery } from "@/hooks/use-api.js";
 
@@ -32,7 +31,6 @@ function App() {
         >
           <RouteTable />
           <Toaster position={"top-center"} closeButton />
-          <ReactQueryDevtools initialIsOpen={false} />
         </ThemeProvider>
       </BrowserRouter>
     </UserContext.Provider>
